@@ -1,0 +1,13 @@
+C:\Users\Admin\source\repos\Starly\Common\Starly.CrossCutting\bin\Debug\net8.0\Starly.CrossCutting.deps.json
+C:\Users\Admin\source\repos\Starly\Common\Starly.CrossCutting\bin\Debug\net8.0\Starly.CrossCutting.dll
+C:\Users\Admin\source\repos\Starly\Common\Starly.CrossCutting\bin\Debug\net8.0\Starly.CrossCutting.pdb
+C:\Users\Admin\source\repos\Starly\Common\Starly.CrossCutting\obj\Debug\net8.0\Starly.CrossCutting.csproj.AssemblyReference.cache
+C:\Users\Admin\source\repos\Starly\Common\Starly.CrossCutting\obj\Debug\net8.0\Starly.CrossCutting.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Admin\source\repos\Starly\Common\Starly.CrossCutting\obj\Debug\net8.0\Starly.CrossCutting.AssemblyInfoInputs.cache
+C:\Users\Admin\source\repos\Starly\Common\Starly.CrossCutting\obj\Debug\net8.0\Starly.CrossCutting.AssemblyInfo.cs
+C:\Users\Admin\source\repos\Starly\Common\Starly.CrossCutting\obj\Debug\net8.0\Starly.CrossCutting.csproj.CoreCompileInputs.cache
+C:\Users\Admin\source\repos\Starly\Common\Starly.CrossCutting\obj\Debug\net8.0\Starly.CrossCutting.sourcelink.json
+C:\Users\Admin\source\repos\Starly\Common\Starly.CrossCutting\obj\Debug\net8.0\Starly.CrossCutting.dll
+C:\Users\Admin\source\repos\Starly\Common\Starly.CrossCutting\obj\Debug\net8.0\refint\Starly.CrossCutting.dll
+C:\Users\Admin\source\repos\Starly\Common\Starly.CrossCutting\obj\Debug\net8.0\Starly.CrossCutting.pdb
+C:\Users\Admin\source\repos\Starly\Common\Starly.CrossCutting\obj\Debug\net8.0\ref\Starly.CrossCutting.dll

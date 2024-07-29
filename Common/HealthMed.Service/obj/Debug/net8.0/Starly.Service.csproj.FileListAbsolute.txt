@@ -1,0 +1,16 @@
+C:\Users\Admin\source\repos\Starly\Common\Starly.Service\bin\Debug\net8.0\Starly.Service.deps.json
+C:\Users\Admin\source\repos\Starly\Common\Starly.Service\bin\Debug\net8.0\Starly.Service.dll
+C:\Users\Admin\source\repos\Starly\Common\Starly.Service\bin\Debug\net8.0\Starly.Service.pdb
+C:\Users\Admin\source\repos\Starly\Common\Starly.Service\bin\Debug\net8.0\Starly.Domain.dll
+C:\Users\Admin\source\repos\Starly\Common\Starly.Service\bin\Debug\net8.0\Starly.Domain.pdb
+C:\Users\Admin\source\repos\Starly\Common\Starly.Service\obj\Debug\net8.0\Starly.Service.csproj.AssemblyReference.cache
+C:\Users\Admin\source\repos\Starly\Common\Starly.Service\obj\Debug\net8.0\Starly.Service.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Admin\source\repos\Starly\Common\Starly.Service\obj\Debug\net8.0\Starly.Service.AssemblyInfoInputs.cache
+C:\Users\Admin\source\repos\Starly\Common\Starly.Service\obj\Debug\net8.0\Starly.Service.AssemblyInfo.cs
+C:\Users\Admin\source\repos\Starly\Common\Starly.Service\obj\Debug\net8.0\Starly.Service.csproj.CoreCompileInputs.cache
+C:\Users\Admin\source\repos\Starly\Common\Starly.Service\obj\Debug\net8.0\Starly.Service.sourcelink.json
+C:\Users\Admin\source\repos\Starly\Common\Starly.Service\obj\Debug\net8.0\Starly.S.BE7D10E9.Up2Date
+C:\Users\Admin\source\repos\Starly\Common\Starly.Service\obj\Debug\net8.0\Starly.Service.dll
+C:\Users\Admin\source\repos\Starly\Common\Starly.Service\obj\Debug\net8.0\refint\Starly.Service.dll
+C:\Users\Admin\source\repos\Starly\Common\Starly.Service\obj\Debug\net8.0\Starly.Service.pdb
+C:\Users\Admin\source\repos\Starly\Common\Starly.Service\obj\Debug\net8.0\ref\Starly.Service.dll
