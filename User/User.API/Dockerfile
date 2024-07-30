@@ -9,25 +9,25 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["Customer/Customer.API/Customer.API.csproj", "Customer/Customer.API/"]
-COPY ["Customer/Customer.Domain/Customer.Domain.csproj", "Customer/Customer.Domain/"]
-COPY ["Common/Starly.Domain/Starly.Domain.csproj", "Common/Starly.Domain/"]
-COPY ["Customer/Customer.Infra.Data/Customer.Infra.Data.csproj", "Customer/Customer.Infra.Data/"]
-COPY ["Common/Starly.Infra.Data/Starly.Infra.Data.csproj", "Common/Starly.Infra.Data/"]
-COPY ["Common/Starly.Service/Starly.Service.csproj", "Common/Starly.Service/"]
-COPY ["Customer/Customer.Service/Customer.Service.csproj", "Customer/Customer.Service/"]
-COPY ["Common/Starly.CrossCutting/Starly.CrossCutting.csproj", "Common/Starly.CrossCutting/"]
-RUN dotnet restore "./Customer/Customer.API/Customer.API.csproj"
+COPY ["User/User.API/User.API.csproj", "User/User.API/"]
+COPY ["Common/HealthMed.CrossCutting/HealthMed.CrossCutting.csproj", "Common/HealthMed.CrossCutting/"]
+COPY ["Common/HealthMed.Domain/HealthMed.Domain.csproj", "Common/HealthMed.Domain/"]
+COPY ["Common/HealthMed.Service/HealthMed.Service.csproj", "Common/HealthMed.Service/"]
+COPY ["User/User.Domain/User.Domain.csproj", "User/User.Domain/"]
+COPY ["User/User.Infra.Data/User.Infra.Data.csproj", "User/User.Infra.Data/"]
+COPY ["Common/HealthMed.Infra.Data/HealthMed.Infra.Data.csproj", "Common/HealthMed.Infra.Data/"]
+COPY ["User/User.Service/User.Service.csproj", "User/User.Service/"]
+RUN dotnet restore "./User/User.API/User.API.csproj"
 COPY . .
-WORKDIR "/src/Customer/Customer.API"
-RUN dotnet build "./Customer.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/User/User.API"
+RUN dotnet build "./User.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./Customer.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./User.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENV ASPNETCORE_URLS=http://+:80
-ENTRYPOINT ["dotnet", "Customer.API.dll"]
+ENTRYPOINT ["dotnet", "User.API.dll"]
