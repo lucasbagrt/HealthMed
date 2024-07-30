@@ -1,25 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Admin\\source\\repos\\HealthMed\\Common\\HealthMed.CrossCutting\\HealthMed.CrossCutting.csproj": {}
+    "C:\\Users\\Victória p\\Source\\Repos\\HealthMed\\Common\\HealthMed.CrossCutting\\HealthMed.CrossCutting.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Admin\\source\\repos\\HealthMed\\Common\\HealthMed.CrossCutting\\HealthMed.CrossCutting.csproj": {
+    "C:\\Users\\Victória p\\Source\\Repos\\HealthMed\\Common\\HealthMed.CrossCutting\\HealthMed.CrossCutting.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Admin\\source\\repos\\HealthMed\\Common\\HealthMed.CrossCutting\\HealthMed.CrossCutting.csproj",
+        "projectUniqueName": "C:\\Users\\Victória p\\Source\\Repos\\HealthMed\\Common\\HealthMed.CrossCutting\\HealthMed.CrossCutting.csproj",
         "projectName": "HealthMed.CrossCutting",
-        "projectPath": "C:\\Users\\Admin\\source\\repos\\HealthMed\\Common\\HealthMed.CrossCutting\\HealthMed.CrossCutting.csproj",
-        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Admin\\source\\repos\\HealthMed\\Common\\HealthMed.CrossCutting\\obj\\",
+        "projectPath": "C:\\Users\\Victória p\\Source\\Repos\\HealthMed\\Common\\HealthMed.CrossCutting\\HealthMed.CrossCutting.csproj",
+        "packagesPath": "C:\\Users\\Victória p\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Victória p\\Source\\Repos\\HealthMed\\Common\\HealthMed.CrossCutting\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Victória p\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -27,7 +22,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -76,7 +70,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.206/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.205/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
