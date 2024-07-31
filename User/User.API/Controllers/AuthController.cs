@@ -29,7 +29,7 @@ public class AuthController : Controller
     [SwaggerResponse((int)HttpStatusCode.InternalServerError)]
     public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
     {
-        var register = await _authService.RegisterAsync(registerDto);
+        var register = await _authService.RegisterAsync(registerDto, this.IsAdmin());
         return Ok(register);
     }
 

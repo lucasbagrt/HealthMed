@@ -25,8 +25,9 @@ public class Seed_20240426152400_Add_Admin : Seed
             Password = "1q2w3e4r@#$A",
             LastName = "Admin",
             Username = "admin",
+            Role = Domain.Enums.Role.ADMIN
         };
 
-        authService.RegisterAsync(user, StaticUserRoles.ADMIN).Wait();
+        authService.RegisterAsync(user, true).Wait();
     }
 }

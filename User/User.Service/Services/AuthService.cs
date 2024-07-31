@@ -8,7 +8,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using HealthMed.CrossCutting.Notifications;
 using HealthMed.Domain.Dtos.Default;
-using HealthMed.Domain.Utilities;
 using HealthMed.Service.Services;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -65,10 +64,12 @@ public class AuthService : BaseService, IAuthService
         };
     }
 
-    public async Task<DefaultServiceResponseDto> RegisterAsync(RegisterDto registerDto, string role = StaticUserRoles.USER)
+    public async Task<DefaultServiceResponseDto> RegisterAsync(RegisterDto registerDto, bool isAdmin)
     {
         var validationResult = Validate(registerDto, Activator.CreateInstance<RegisterValidator>());
         if (!validationResult.IsValid) { _notificationContext.AddNotifications(validationResult.Errors); return default; }
+
+        if (!isAdmin && registerDto.Role == Domain.Enums.Role.ADMIN) { _notificationContext.AddNotification(StaticNotifications.UserUnauthorized); return default; }
 
         var existsUser = await _userManager.FindByNameAsync(registerDto.Username);
         if (existsUser is not null) { _notificationContext.AddNotification(StaticNotifications.UserAlreadyExists); return default; }
@@ -76,7 +77,7 @@ public class AuthService : BaseService, IAuthService
         var newUser = _mapper.Map<Entities.User>(registerDto);
 
         newUser.CreatedAt = DateTime.Now;
-        newUser.Active = true;        
+        newUser.Active = true;
 
         var createUserResult = await _userManager.CreateAsync(newUser, registerDto.Password);
 
@@ -87,7 +88,7 @@ public class AuthService : BaseService, IAuthService
             return default;
         }
 
-        await _userManager.AddToRoleAsync(newUser, role);
+        await _userManager.AddToRoleAsync(newUser, Enum.GetName(registerDto.Role));
 
         return new DefaultServiceResponseDto
         {
