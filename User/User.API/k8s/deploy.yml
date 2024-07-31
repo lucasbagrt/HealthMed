@@ -1,0 +1,19 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apiuser
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: apiuser
+  template:
+    metadata:
+      labels:
+        app: apiuser
+    spec:
+      containers:
+        - name: apiuser
+          image: bagrt/health-customer:latest
+          ports:
+            - containerPort: 80
