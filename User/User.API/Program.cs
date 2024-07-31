@@ -133,7 +133,7 @@ using (var scope = app.Services.CreateScope())
     var dbContext = scope.ServiceProvider
         .GetRequiredService<ApplicationDbContext>();
 
-    dbContext.Database.Migrate();
+    await dbContext.Database.MigrateAsync();
     dbContext.EnsureSeedData(scope.ServiceProvider);
 }
 #endregion
