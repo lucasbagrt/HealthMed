@@ -9,7 +9,7 @@ namespace Appointment.Domain.Entities
         public int PatientId { get; set; }
         public DateTime Date { get; set; }
         public TimeSpan Time { get; set; } 
-        public string Status { get; set; }
+        public AppointmentStatusEnum Status { get; set; }
         public bool IsActive { get; set; }
     }
 

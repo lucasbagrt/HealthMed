@@ -1,5 +1,13 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Appointment.Domain.Dtos.Appointment;
+using Appointment.Domain.Interfaces.Services;
+using HealthMed.CrossCutting.Notifications;
+using HealthMed.Domain.Dtos.Default;
+using HealthMed.Domain.Utilities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
+using HealthMed.Domain.Extensions;
+using System.Net;
 
 namespace Appointment.API.Controllers
 {
@@ -8,104 +16,127 @@ namespace Appointment.API.Controllers
     [Authorize]
     public class AppointmentController : Controller
     {
-        //private readonly IUserService _userService;
+        private readonly IAppointmentService _appointmentService;
 
-        //public AppointmentController(IUserService userService)
-        //{
-        //    _userService = userService;
-        //}
+        public AppointmentController(IAppointmentService appointmentService)
+        {
+            _appointmentService = appointmentService;
+        }
 
-        //[HttpGet]
-        //[Authorize(Roles = StaticUserRoles.ADMIN)]
-        //[SwaggerOperation(Summary = "Get all users")]
-        //[SwaggerResponse((int)HttpStatusCode.OK, Type = typeof(IList<UserResponseDto>))]
-        //[SwaggerResponse((int)HttpStatusCode.InternalServerError)]
-        //[SwaggerResponse((int)HttpStatusCode.Unauthorized)]
-        //[SwaggerResponse((int)HttpStatusCode.Forbidden)]
-        //public async Task<IActionResult> GetAll([FromQuery] UserFilter filter)
-        //{
-        //    var users = await _userService.GetAllAsync(filter);
-        //    if (users is null)
-        //        return NotFound();
+        [HttpPost]
+        [Authorize(Roles = StaticUserRoles.USER)]
+        [SwaggerOperation(Summary = "Create an appointment")]
+        [SwaggerResponse((int)HttpStatusCode.OK, Type = typeof(DefaultServiceResponseDto))]
+        [SwaggerResponse((int)HttpStatusCode.BadRequest, Type = typeof(IReadOnlyCollection<Notification>))]
+        [SwaggerResponse((int)HttpStatusCode.InternalServerError)]
+        [SwaggerResponse((int)HttpStatusCode.Unauthorized)]
+        public async Task<IActionResult> Create([FromBody] CreateAppointmentRequestDto request)
+        {
+            var result = await _appointmentService.CreateAppointmentAsync(request, this.GetUserIdLogged());
+            if (result == null || !result.Success)
+            {
+                return BadRequest(result?.Message);
+            }
+            return Ok(result);
+        }
 
-        //    return Ok(users);
-        //}
+        [HttpPut]
+        [Authorize(Roles = StaticUserRoles.USER)]
+        [SwaggerOperation(Summary = "Update an appointment")]
+        [SwaggerResponse((int)HttpStatusCode.OK, Type = typeof(DefaultServiceResponseDto))]
+        [SwaggerResponse((int)HttpStatusCode.BadRequest, Type = typeof(IReadOnlyCollection<Notification>))]
+        [SwaggerResponse((int)HttpStatusCode.InternalServerError)]
+        [SwaggerResponse((int)HttpStatusCode.Unauthorized)]
+        public async Task<IActionResult> Update([FromBody] UpdateAppointmentRequestDto request)
+        {
+            var result = await _appointmentService.UpdateAppointmentAsync(request, this.GetUserIdLogged());
+            if (result == null || !result.Success)
+            {
+                return BadRequest(result?.Message);
+            }
+            return Ok(result);
+        }
 
-        //[HttpGet("{id}")]
-        //[Authorize(Roles = StaticUserRoles.ADMIN)]
-        //[SwaggerOperation(Summary = "Get user by id")]
-        //[SwaggerResponse((int)HttpStatusCode.OK, Type = typeof(UserResponseDto))]
-        //[SwaggerResponse((int)HttpStatusCode.NoContent)]
-        //[SwaggerResponse((int)HttpStatusCode.BadRequest, Type = typeof(IReadOnlyCollection<dynamic>))]
-        //[SwaggerResponse((int)HttpStatusCode.InternalServerError)]
-        //[SwaggerResponse((int)HttpStatusCode.Unauthorized)]
-        //[SwaggerResponse((int)HttpStatusCode.Forbidden)]
-        //public async Task<IActionResult> GetById(int id)
-        //{
-        //    var user = await _userService.GetByIdAsync(id);
-        //    if (user is null)
-        //        return NotFound();
+        [HttpDelete("{appointmentId}")]
+        [Authorize(Roles = StaticUserRoles.USER)]
+        [SwaggerOperation(Summary = "Cancel an appointment")]
+        [SwaggerResponse((int)HttpStatusCode.OK, Type = typeof(DefaultServiceResponseDto))]
+        [SwaggerResponse((int)HttpStatusCode.BadRequest, Type = typeof(IReadOnlyCollection<Notification>))]
+        [SwaggerResponse((int)HttpStatusCode.InternalServerError)]
+        [SwaggerResponse((int)HttpStatusCode.Unauthorized)]
+        public async Task<IActionResult> Cancel(int appointmentId)
+        {
+            var result = await _appointmentService.CancelAppointmentAsync(appointmentId, this.GetUserIdLogged());
+            if (result == null || !result.Success)
+            {
+                return BadRequest(result?.Message);
+            }
+            return Ok(result);
+        }
 
-        //    return Ok(user);
-        //}
+        [HttpGet("{appointmentId}")]
+        [Authorize(Roles = StaticUserRoles.USER)]
+        [SwaggerOperation(Summary = "Get appointment by ID")]
+        [SwaggerResponse((int)HttpStatusCode.OK, Type = typeof(AppointmentDto))]
+        [SwaggerResponse((int)HttpStatusCode.NotFound)]
+        [SwaggerResponse((int)HttpStatusCode.InternalServerError)]
+        [SwaggerResponse((int)HttpStatusCode.Unauthorized)]
+        public async Task<IActionResult> GetById(int appointmentId)
+        {
+            var result = await _appointmentService.GetAppointmentByIdAsync(appointmentId);
+            if (result == null)
+            {
+                return NotFound();
+            }
+            return Ok(result);
+        }
 
-        //[HttpGet("GetUserInfo/{id}")]
-        //[Authorize]
-        //[SwaggerOperation(Summary = "Get user info")]
-        //[SwaggerResponse((int)HttpStatusCode.OK, Type = typeof(UserInfoDto))]
-        //[SwaggerResponse((int)HttpStatusCode.NoContent)]
-        //[SwaggerResponse((int)HttpStatusCode.BadRequest, Type = typeof(IReadOnlyCollection<dynamic>))]
-        //[SwaggerResponse((int)HttpStatusCode.InternalServerError)]
-        //[SwaggerResponse((int)HttpStatusCode.Unauthorized)]
-        //[SwaggerResponse((int)HttpStatusCode.Forbidden)]
-        //public async Task<IActionResult> GetUserInfo(int id)
-        //{
-        //    var user = await _userService.GetUserInfoAsync(id, this.GetUserIdLogged());
-        //    if (user is null)
-        //        return NotFound();
+        [HttpGet]
+        [Authorize(Roles = StaticUserRoles.USER)]
+        [SwaggerOperation(Summary = "Get all appointments")]
+        [SwaggerResponse((int)HttpStatusCode.OK, Type = typeof(List<AppointmentDto>))]
+        [SwaggerResponse((int)HttpStatusCode.InternalServerError)]
+        [SwaggerResponse((int)HttpStatusCode.Unauthorized)]
+        public async Task<IActionResult> GetAll()
+        {
+            var result = await _appointmentService.GetAllAppointmentsAsync();
+            return Ok(result);
+        }
 
-        //    return Ok(user);
-        //}
+        [HttpGet("doctor")]
+        [Authorize(Roles = StaticUserRoles.DOCTOR)]
+        [SwaggerOperation(Summary = "Get appointments by doctor ID")]
+        [SwaggerResponse((int)HttpStatusCode.OK, Type = typeof(DoctorScheduleResponseDto))]
+        [SwaggerResponse((int)HttpStatusCode.InternalServerError)]
+        [SwaggerResponse((int)HttpStatusCode.Unauthorized)]
+        public async Task<IActionResult> GetByDoctorId()
+        {
+            var result = await _appointmentService.GetAppointmentsByDoctorIdAsync(this.GetUserIdLogged());
+            return Ok(result);
+        }
 
-        //[HttpPut]
-        //[Authorize]
-        //[SwaggerOperation(Summary = "Update user")]
-        //[SwaggerResponse((int)HttpStatusCode.OK, Type = typeof(DefaultServiceResponseDto))]
-        //[SwaggerResponse((int)HttpStatusCode.BadRequest, Type = typeof(IReadOnlyCollection<dynamic>))]
-        //[SwaggerResponse((int)HttpStatusCode.InternalServerError)]
-        //[SwaggerResponse((int)HttpStatusCode.Unauthorized)]
-        //[SwaggerResponse((int)HttpStatusCode.Forbidden)]
-        //public async Task<IActionResult> Update([FromBody] UpdateUserDto updateUserDto)
-        //{
-        //    var response = await _userService.UpdateAsync(updateUserDto, this.GetUserIdLogged());
-        //    return Ok(response);
-        //}
+        [HttpGet("patient")]
+        [Authorize(Roles = StaticUserRoles.USER)]
+        [SwaggerOperation(Summary = "Get appointments by patient ID")]
+        [SwaggerResponse((int)HttpStatusCode.OK, Type = typeof(PatientAppointmentsResponseDto))]
+        [SwaggerResponse((int)HttpStatusCode.InternalServerError)]
+        [SwaggerResponse((int)HttpStatusCode.Unauthorized)]
+        public async Task<IActionResult> GetByPatientId()
+        {
+            var result = await _appointmentService.GetAppointmentsByPatientIdAsync(this.GetUserIdLogged());
+            return Ok(result);
+        }
 
-        //[HttpPut("Password")]
-        //[Authorize]
-        //[SwaggerOperation(Summary = "Change password")]
-        //[SwaggerResponse((int)HttpStatusCode.OK, Type = typeof(DefaultServiceResponseDto))]
-        //[SwaggerResponse((int)HttpStatusCode.BadRequest, Type = typeof(IReadOnlyCollection<dynamic>))]
-        //[SwaggerResponse((int)HttpStatusCode.InternalServerError)]
-        //[SwaggerResponse((int)HttpStatusCode.Unauthorized)]
-        //public async Task<IActionResult> UpdatePassword([FromBody] UpdateUserPasswordDto updateUserPasswordDto)
-        //{
-        //    var response = await _userService.UpdatePasswordAsync(updateUserPasswordDto, this.GetUserIdLogged());
-        //    return Ok(response);
-        //}
-
-
-        //[HttpDelete]
-        //[Authorize]
-        //[SwaggerOperation(Summary = "Delete user")]
-        //[SwaggerResponse((int)HttpStatusCode.OK, Type = typeof(DefaultServiceResponseDto))]
-        //[SwaggerResponse((int)HttpStatusCode.InternalServerError)]
-        //[SwaggerResponse((int)HttpStatusCode.Unauthorized)]
-        //[SwaggerResponse((int)HttpStatusCode.Forbidden)]
-        //public async Task<IActionResult> Delete()
-        //{
-        //    var response = await _userService.DeleteAsync(this.GetUserIdLogged());
-        //    return Ok(response);
-        //}
+        [HttpGet("available-slots")]
+        [Authorize(Roles = StaticUserRoles.DOCTOR)]
+        [SwaggerOperation(Summary = "Get available slots for a doctor on a specific date")]
+        [SwaggerResponse((int)HttpStatusCode.OK, Type = typeof(List<AvailableSlotDto>))]
+        [SwaggerResponse((int)HttpStatusCode.InternalServerError)]
+        [SwaggerResponse((int)HttpStatusCode.Unauthorized)]
+        public async Task<IActionResult> GetAvailableSlots([FromQuery] DateTime date)
+        {
+            var result = await _appointmentService.GetAvailableSlotsAsync(this.GetUserIdLogged(), date);
+            return Ok(result);
+        }
     }
 }

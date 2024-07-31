@@ -10,9 +10,6 @@ public class MappingConfig
         var mappingConfig = new MapperConfiguration(config =>
         {						
 			config.CreateMap<AppointmentDto, Domain.Entities.Appointment>().ReverseMap();
-			//config.CreateMap<AddOrderDto, OrderDto>().ReverseMap();
-			//config.CreateMap<OrderItemDto, OrderItem>().ReverseMap();
-			//config.CreateMap<AddOrderItemDto, OrderItem>().ReverseMap();			
 		});
         return mappingConfig;
     }

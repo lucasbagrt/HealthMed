@@ -15,21 +15,21 @@ C:\Users\Admin\source\repos\HealthMed\Common\HealthMed.Infra.Data\obj\Debug\net8
 C:\Users\Admin\source\repos\HealthMed\Common\HealthMed.Infra.Data\obj\Debug\net8.0\HealthMed.Infra.Data.pdb
 C:\Users\Admin\source\repos\HealthMed\Common\HealthMed.Infra.Data\obj\Debug\net8.0\HealthMed.Infra.Data.genruntimeconfig.cache
 C:\Users\Admin\source\repos\HealthMed\Common\HealthMed.Infra.Data\obj\Debug\net8.0\ref\HealthMed.Infra.Data.dll
-C:\Users\Victória p\source\repos\HealthMed\Common\HealthMed.Infra.Data\bin\Debug\net8.0\HealthMed.Infra.Data.deps.json
-C:\Users\Victória p\source\repos\HealthMed\Common\HealthMed.Infra.Data\bin\Debug\net8.0\HealthMed.Infra.Data.runtimeconfig.json
-C:\Users\Victória p\source\repos\HealthMed\Common\HealthMed.Infra.Data\bin\Debug\net8.0\HealthMed.Infra.Data.dll
-C:\Users\Victória p\source\repos\HealthMed\Common\HealthMed.Infra.Data\bin\Debug\net8.0\HealthMed.Infra.Data.pdb
-C:\Users\Victória p\source\repos\HealthMed\Common\HealthMed.Infra.Data\bin\Debug\net8.0\HealthMed.Domain.dll
-C:\Users\Victória p\source\repos\HealthMed\Common\HealthMed.Infra.Data\bin\Debug\net8.0\HealthMed.Domain.pdb
-C:\Users\Victória p\source\repos\HealthMed\Common\HealthMed.Infra.Data\obj\Debug\net8.0\HealthMed.Infra.Data.csproj.AssemblyReference.cache
-C:\Users\Victória p\source\repos\HealthMed\Common\HealthMed.Infra.Data\obj\Debug\net8.0\HealthMed.Infra.Data.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Victória p\source\repos\HealthMed\Common\HealthMed.Infra.Data\obj\Debug\net8.0\HealthMed.Infra.Data.AssemblyInfoInputs.cache
-C:\Users\Victória p\source\repos\HealthMed\Common\HealthMed.Infra.Data\obj\Debug\net8.0\HealthMed.Infra.Data.AssemblyInfo.cs
-C:\Users\Victória p\source\repos\HealthMed\Common\HealthMed.Infra.Data\obj\Debug\net8.0\HealthMed.Infra.Data.csproj.CoreCompileInputs.cache
-C:\Users\Victória p\source\repos\HealthMed\Common\HealthMed.Infra.Data\obj\Debug\net8.0\HealthMed.Infra.Data.sourcelink.json
-C:\Users\Victória p\source\repos\HealthMed\Common\HealthMed.Infra.Data\obj\Debug\net8.0\HealthMe.DB92F6DE.Up2Date
-C:\Users\Victória p\source\repos\HealthMed\Common\HealthMed.Infra.Data\obj\Debug\net8.0\HealthMed.Infra.Data.dll
-C:\Users\Victória p\source\repos\HealthMed\Common\HealthMed.Infra.Data\obj\Debug\net8.0\refint\HealthMed.Infra.Data.dll
-C:\Users\Victória p\source\repos\HealthMed\Common\HealthMed.Infra.Data\obj\Debug\net8.0\HealthMed.Infra.Data.pdb
-C:\Users\Victória p\source\repos\HealthMed\Common\HealthMed.Infra.Data\obj\Debug\net8.0\HealthMed.Infra.Data.genruntimeconfig.cache
-C:\Users\Victória p\source\repos\HealthMed\Common\HealthMed.Infra.Data\obj\Debug\net8.0\ref\HealthMed.Infra.Data.dll
+C:\Users\Victória p\Source\Repos\HealthMed\Common\HealthMed.Infra.Data\bin\Debug\net8.0\HealthMed.Infra.Data.deps.json
+C:\Users\Victória p\Source\Repos\HealthMed\Common\HealthMed.Infra.Data\bin\Debug\net8.0\HealthMed.Infra.Data.runtimeconfig.json
+C:\Users\Victória p\Source\Repos\HealthMed\Common\HealthMed.Infra.Data\bin\Debug\net8.0\HealthMed.Infra.Data.dll
+C:\Users\Victória p\Source\Repos\HealthMed\Common\HealthMed.Infra.Data\bin\Debug\net8.0\HealthMed.Infra.Data.pdb
+C:\Users\Victória p\Source\Repos\HealthMed\Common\HealthMed.Infra.Data\bin\Debug\net8.0\HealthMed.Domain.dll
+C:\Users\Victória p\Source\Repos\HealthMed\Common\HealthMed.Infra.Data\bin\Debug\net8.0\HealthMed.Domain.pdb
+C:\Users\Victória p\Source\Repos\HealthMed\Common\HealthMed.Infra.Data\obj\Debug\net8.0\HealthMed.Infra.Data.csproj.AssemblyReference.cache
+C:\Users\Victória p\Source\Repos\HealthMed\Common\HealthMed.Infra.Data\obj\Debug\net8.0\HealthMed.Infra.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Victória p\Source\Repos\HealthMed\Common\HealthMed.Infra.Data\obj\Debug\net8.0\HealthMed.Infra.Data.AssemblyInfoInputs.cache
+C:\Users\Victória p\Source\Repos\HealthMed\Common\HealthMed.Infra.Data\obj\Debug\net8.0\HealthMed.Infra.Data.AssemblyInfo.cs
+C:\Users\Victória p\Source\Repos\HealthMed\Common\HealthMed.Infra.Data\obj\Debug\net8.0\HealthMed.Infra.Data.csproj.CoreCompileInputs.cache
+C:\Users\Victória p\Source\Repos\HealthMed\Common\HealthMed.Infra.Data\obj\Debug\net8.0\HealthMed.Infra.Data.sourcelink.json
+C:\Users\Victória p\Source\Repos\HealthMed\Common\HealthMed.Infra.Data\obj\Debug\net8.0\HealthMe.DB92F6DE.Up2Date
+C:\Users\Victória p\Source\Repos\HealthMed\Common\HealthMed.Infra.Data\obj\Debug\net8.0\HealthMed.Infra.Data.dll
+C:\Users\Victória p\Source\Repos\HealthMed\Common\HealthMed.Infra.Data\obj\Debug\net8.0\refint\HealthMed.Infra.Data.dll
+C:\Users\Victória p\Source\Repos\HealthMed\Common\HealthMed.Infra.Data\obj\Debug\net8.0\HealthMed.Infra.Data.pdb
+C:\Users\Victória p\Source\Repos\HealthMed\Common\HealthMed.Infra.Data\obj\Debug\net8.0\HealthMed.Infra.Data.genruntimeconfig.cache
+C:\Users\Victória p\Source\Repos\HealthMed\Common\HealthMed.Infra.Data\obj\Debug\net8.0\ref\HealthMed.Infra.Data.dll

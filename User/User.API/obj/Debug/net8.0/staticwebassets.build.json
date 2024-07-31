@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "EYYsKldSu8R6eFAQaS2tW0yHwVzj3Tt8D+eM4GOKx/o=",
+  "Hash": "hqHYZcRBkW5MACJxBBw6QGxCm6lVtStaDsMUOMKRnZ8=",
   "Source": "User.API",
   "BasePath": "_content/User.API",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "User.API\\wwwroot",
       "Source": "User.API",
-      "ContentRoot": "C:\\Users\\Victória p\\source\\repos\\HealthMed\\User\\User.API\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Victória p\\Source\\Repos\\HealthMed\\User\\User.API\\wwwroot\\",
       "BasePath": "_content/User.API",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\Victória p\\source\\repos\\HealthMed\\User\\User.API\\wwwroot\\swagger-ui\\SwaggerDark.css",
+      "Identity": "C:\\Users\\Victória p\\Source\\Repos\\HealthMed\\User\\User.API\\wwwroot\\swagger-ui\\SwaggerDark.css",
       "SourceId": "User.API",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Victória p\\source\\repos\\HealthMed\\User\\User.API\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Victória p\\Source\\Repos\\HealthMed\\User\\User.API\\wwwroot\\",
       "BasePath": "_content/User.API",
       "RelativePath": "swagger-ui/SwaggerDark.css",
       "AssetKind": "All",

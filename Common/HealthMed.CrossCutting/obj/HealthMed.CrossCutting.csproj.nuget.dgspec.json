@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Victória p\\Source\\Repos\\HealthMed\\Common\\HealthMed.CrossCutting\\HealthMed.CrossCutting.csproj": {}
+    "C:\\Users\\Victória p\\source\\repos\\HealthMed\\Common\\HealthMed.CrossCutting\\HealthMed.CrossCutting.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Victória p\\Source\\Repos\\HealthMed\\Common\\HealthMed.CrossCutting\\HealthMed.CrossCutting.csproj": {
+    "C:\\Users\\Victória p\\source\\repos\\HealthMed\\Common\\HealthMed.CrossCutting\\HealthMed.CrossCutting.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Victória p\\Source\\Repos\\HealthMed\\Common\\HealthMed.CrossCutting\\HealthMed.CrossCutting.csproj",
+        "projectUniqueName": "C:\\Users\\Victória p\\source\\repos\\HealthMed\\Common\\HealthMed.CrossCutting\\HealthMed.CrossCutting.csproj",
         "projectName": "HealthMed.CrossCutting",
-        "projectPath": "C:\\Users\\Victória p\\Source\\Repos\\HealthMed\\Common\\HealthMed.CrossCutting\\HealthMed.CrossCutting.csproj",
+        "projectPath": "C:\\Users\\Victória p\\source\\repos\\HealthMed\\Common\\HealthMed.CrossCutting\\HealthMed.CrossCutting.csproj",
         "packagesPath": "C:\\Users\\Victória p\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Victória p\\Source\\Repos\\HealthMed\\Common\\HealthMed.CrossCutting\\obj\\",
+        "outputPath": "C:\\Users\\Victória p\\source\\repos\\HealthMed\\Common\\HealthMed.CrossCutting\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Victória p\\AppData\\Roaming\\NuGet\\NuGet.Config",

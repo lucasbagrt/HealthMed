@@ -11,6 +11,12 @@ using HealthMed.Service.Services;
 using Appointment.API.Filters;
 using Appointment.Infra.Data.Context;
 using Appointment.Api.Mapper;
+using Appointment.Domain.Interfaces.Repositories;
+using Appointment.Infra.Data.Repositories;
+using Appointment.Data.Repositories;
+using Appointment.Service.Services;
+using Appointment.Domain.Interfaces.Services;
+
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -54,13 +60,11 @@ services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 #region [DI]
 services.AddScoped<NotificationContext>();
-services.AddScoped<IBaseService, BaseService>();
-//services.AddScoped<IOrderService, OrderService>();
+services.AddScoped<IBaseService, BaseService>(); 
+services.AddScoped<IAppointmentService, AppointmentService>();
 
-//services.AddScoped<IOrderRepository, OrderRepository>();
-//services.AddScoped<IOrderItemRepository, OrderItemRepository>();
-
-//services.AddScoped<IEventIntegration, EventIntegration>();
+services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+services.AddScoped<IScheduleRepository, ScheduleRepository>();
 #endregion
 
 #region [Swagger]            
@@ -118,13 +122,12 @@ using (var scope = app.Services.CreateScope())
     var dbContext = scope.ServiceProvider
         .GetRequiredService<ApplicationDbContext>();
 
-    dbContext.Database.Migrate();
+    await dbContext.Database.MigrateAsync();
     dbContext.EnsureSeedData(scope.ServiceProvider);
 }
 #endregion
 
 #region [Swagger App]            
-
 app.UseDeveloperExceptionPage();
 app.UseSwagger();
 app.UseSwaggerUI(c =>
@@ -132,7 +135,6 @@ app.UseSwaggerUI(c =>
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "Appointment v1");
     c.InjectStylesheet("/swagger-ui/SwaggerDark.css");
 });
-
 #endregion
 
 #region [Cors]            
@@ -150,4 +152,4 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
+await app.RunAsync();
