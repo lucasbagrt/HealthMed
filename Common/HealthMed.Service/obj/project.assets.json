@@ -7099,11 +7099,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Victória p\\source\\repos\\HealthMedTest\\Common\\HealthMed.Service\\HealthMed.Service.csproj",
+      "projectUniqueName": "C:\\Users\\Victória p\\Source\\Repos\\HealthMed\\Common\\HealthMed.Service\\HealthMed.Service.csproj",
       "projectName": "HealthMed.Service",
-      "projectPath": "C:\\Users\\Victória p\\source\\repos\\HealthMedTest\\Common\\HealthMed.Service\\HealthMed.Service.csproj",
+      "projectPath": "C:\\Users\\Victória p\\Source\\Repos\\HealthMed\\Common\\HealthMed.Service\\HealthMed.Service.csproj",
       "packagesPath": "C:\\Users\\Victória p\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Victória p\\source\\repos\\HealthMedTest\\Common\\HealthMed.Service\\obj\\",
+      "outputPath": "C:\\Users\\Victória p\\Source\\Repos\\HealthMed\\Common\\HealthMed.Service\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Victória p\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -7120,8 +7120,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\Victória p\\source\\repos\\HealthMedTest\\Common\\HealthMed.Domain\\HealthMed.Domain.csproj": {
-              "projectPath": "C:\\Users\\Victória p\\source\\repos\\HealthMedTest\\Common\\HealthMed.Domain\\HealthMed.Domain.csproj"
+            "C:\\Users\\Victória p\\Source\\Repos\\HealthMed\\Common\\HealthMed.Domain\\HealthMed.Domain.csproj": {
+              "projectPath": "C:\\Users\\Victória p\\Source\\Repos\\HealthMed\\Common\\HealthMed.Domain\\HealthMed.Domain.csproj"
             }
           }
         }

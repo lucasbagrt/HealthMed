@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("HealthMed.CrossCutting")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5f424134351178c8f322631ab1ce0967632246a9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6329d06cefbe7d1a038192ae0dfd777bdf204eec")]
 [assembly: System.Reflection.AssemblyProductAttribute("HealthMed.CrossCutting")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HealthMed.CrossCutting")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

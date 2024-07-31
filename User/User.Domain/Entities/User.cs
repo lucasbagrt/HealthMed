@@ -12,4 +12,5 @@ public class User : IdentityUser<int>, IEntity<int>
     public bool Active { get; set; }
     public string RefreshToken { get; set; }
     public DateTime RefreshTokenExpiryTime { get; set; }   
+    public string Crm { get; set; }
 }

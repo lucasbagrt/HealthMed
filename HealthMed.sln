@@ -23,6 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthMed.Infra.Data", "Com
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthMed.Service", "Common\HealthMed.Service\HealthMed.Service.csproj", "{D461A53F-1A46-41BE-8338-E322323AB3E9}"
 EndProject
+<<<<<<< HEAD
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Appointment", "Appointment", "{01ABF941-D86B-42DB-84E2-3345B52B4D35}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Appointment.API", "Appointment\Appointment.API\Appointment.API.csproj", "{CB1F67FC-B3BB-4E97-BCA5-E84BD9692F62}"
@@ -32,6 +33,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Appointment.Infra.Data", "Appointment\Appointment.Infra.Data\Appointment.Infra.Data.csproj", "{920CE0AF-7796-44D1-BFF6-14745B7A31FC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Appointment.Service", "Appointment\Appointment.Service\Appointment.Service.csproj", "{84CF9A8A-5B46-4893-B07E-187E5ADC9712}"
+=======
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "User.UnitTests", "User\User.UnitTests\User.UnitTests.csproj", "{1AD7DF5B-7AEB-4FD9-861B-815C7C6235D1}"
+>>>>>>> main
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,6 +75,7 @@ Global
 		{D461A53F-1A46-41BE-8338-E322323AB3E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D461A53F-1A46-41BE-8338-E322323AB3E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D461A53F-1A46-41BE-8338-E322323AB3E9}.Release|Any CPU.Build.0 = Release|Any CPU
+<<<<<<< HEAD
 		{CB1F67FC-B3BB-4E97-BCA5-E84BD9692F62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CB1F67FC-B3BB-4E97-BCA5-E84BD9692F62}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CB1F67FC-B3BB-4E97-BCA5-E84BD9692F62}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -87,6 +92,12 @@ Global
 		{84CF9A8A-5B46-4893-B07E-187E5ADC9712}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84CF9A8A-5B46-4893-B07E-187E5ADC9712}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84CF9A8A-5B46-4893-B07E-187E5ADC9712}.Release|Any CPU.Build.0 = Release|Any CPU
+=======
+		{1AD7DF5B-7AEB-4FD9-861B-815C7C6235D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AD7DF5B-7AEB-4FD9-861B-815C7C6235D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AD7DF5B-7AEB-4FD9-861B-815C7C6235D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AD7DF5B-7AEB-4FD9-861B-815C7C6235D1}.Release|Any CPU.Build.0 = Release|Any CPU
+>>>>>>> main
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -100,10 +111,14 @@ Global
 		{AE4064B8-1E22-4105-965B-7607895B222D} = {275822C9-99C9-474B-AF41-3445CCD9C1F4}
 		{203E91C1-642D-4B65-9659-CA0AE3BD89CB} = {275822C9-99C9-474B-AF41-3445CCD9C1F4}
 		{D461A53F-1A46-41BE-8338-E322323AB3E9} = {275822C9-99C9-474B-AF41-3445CCD9C1F4}
+<<<<<<< HEAD
 		{CB1F67FC-B3BB-4E97-BCA5-E84BD9692F62} = {01ABF941-D86B-42DB-84E2-3345B52B4D35}
 		{D5E9FDCE-CB10-47F4-80B2-930641F857A4} = {01ABF941-D86B-42DB-84E2-3345B52B4D35}
 		{920CE0AF-7796-44D1-BFF6-14745B7A31FC} = {01ABF941-D86B-42DB-84E2-3345B52B4D35}
 		{84CF9A8A-5B46-4893-B07E-187E5ADC9712} = {01ABF941-D86B-42DB-84E2-3345B52B4D35}
+=======
+		{1AD7DF5B-7AEB-4FD9-861B-815C7C6235D1} = {694CEE22-8CAB-41BD-A42C-A1F0D0C579A5}
+>>>>>>> main
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7AE75A7C-A28A-4BAC-A79A-446447CB9264}

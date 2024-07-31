@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Victória p\\source\\repos\\HealthMedTest\\Common\\HealthMed.Domain\\HealthMed.Domain.csproj": {}
+    "C:\\Users\\Victória p\\Source\\Repos\\HealthMed\\Common\\HealthMed.Domain\\HealthMed.Domain.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Victória p\\source\\repos\\HealthMedTest\\Common\\HealthMed.Domain\\HealthMed.Domain.csproj": {
+    "C:\\Users\\Victória p\\Source\\Repos\\HealthMed\\Common\\HealthMed.Domain\\HealthMed.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Victória p\\source\\repos\\HealthMedTest\\Common\\HealthMed.Domain\\HealthMed.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\Victória p\\Source\\Repos\\HealthMed\\Common\\HealthMed.Domain\\HealthMed.Domain.csproj",
         "projectName": "HealthMed.Domain",
-        "projectPath": "C:\\Users\\Victória p\\source\\repos\\HealthMedTest\\Common\\HealthMed.Domain\\HealthMed.Domain.csproj",
+        "projectPath": "C:\\Users\\Victória p\\Source\\Repos\\HealthMed\\Common\\HealthMed.Domain\\HealthMed.Domain.csproj",
         "packagesPath": "C:\\Users\\Victória p\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Victória p\\source\\repos\\HealthMedTest\\Common\\HealthMed.Domain\\obj\\",
+        "outputPath": "C:\\Users\\Victória p\\Source\\Repos\\HealthMed\\Common\\HealthMed.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Victória p\\AppData\\Roaming\\NuGet\\NuGet.Config",

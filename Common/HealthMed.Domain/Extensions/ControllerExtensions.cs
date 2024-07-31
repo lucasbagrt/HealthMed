@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using HealthMed.Domain.Utilities;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -6,6 +7,16 @@ namespace HealthMed.Domain.Extensions;
 
 public static class ControllerExtensions
 {
+    public static bool IsAdmin(this Controller controller)
+    {
+        if (controller.User == null) return false;
+
+        var identity = (ClaimsIdentity)controller.User.Identity;
+        IEnumerable<Claim> claims = identity.Claims;
+
+        return claims.Any(x => x.Type == ClaimTypes.Role && x.Value == StaticUserRoles.ADMIN);
+    }
+
     public static int GetUserIdLogged(this Controller controller)
     {
         var identity = (ClaimsIdentity)controller.User.Identity;

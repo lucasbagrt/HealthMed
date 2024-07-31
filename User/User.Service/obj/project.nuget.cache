@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "FjjjqRxyb6WM6+Rs93b18Gg4vB2647cr8x1wSNpvPyBUXK05u69Sx0QQ19UkZx23ruJq4Rl9N0f+bRRpqcJl6g==",
+  "dgSpecHash": "/aNrTKUt4R5EzjPki4RtAsJmcEA2tb8pd2bdmVDFKg+NkTTWw0w7HKpbsTZEIW8qebM8ei4VG4zd4oOeVVofTw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Victória p\\source\\repos\\HealthMedTest\\User\\User.Service\\User.Service.csproj",
+  "projectFilePath": "C:\\Users\\Victória p\\Source\\Repos\\HealthMed\\User\\User.Service\\User.Service.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Victória p\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\Victória p\\.nuget\\packages\\azure.core\\1.36.0\\azure.core.1.36.0.nupkg.sha512",

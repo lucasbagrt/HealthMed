@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "SwD5rP6a0MfzB5wXy/vSvCLST3rXeUZu2YjIGwciapwCxxlefez7f1+z78WhkI/01ZMsXws5vJvt9TezOteiMg==",
+  "dgSpecHash": "E+/IVdhgLtBDQQfPkFKS0Q+ENZ6GnE1bWDnm91CQSPy7PLmy8mG3fRCNZ1bgaMWOb55JJc4k/zW607bb8fUZgA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Victória p\\source\\repos\\HealthMedTest\\User\\User.API\\User.API.csproj",
+  "projectFilePath": "C:\\Users\\Victória p\\Source\\Repos\\HealthMed\\User\\User.API\\User.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Victória p\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\Victória p\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
