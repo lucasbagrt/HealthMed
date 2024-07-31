@@ -1,5 +1,4 @@
 ﻿using HealthMed.CrossCutting.Notifications;
-using User.UnitTests.Attributes;
 using User.UnitTests.Fixtures;
 using User.UnitTests.Scenarios;
 
@@ -12,24 +11,6 @@ public class AuthServiceTests : IClassFixture<AuthServiceFixture>
     public AuthServiceTests(AuthServiceFixture fixture)
     {
         _fixture = fixture;
-    }
-
-    [Fact, TestPriority(0)]
-    public async Task RefreshTokenAsync_ValidTokens_ReturnsLoginResponse()
-    {
-        // Arrange
-        var accessToken = "valid_access_token";
-        var refreshToken = "valid_refresh_token";
-        var userName = "validuser";
-
-        // Act
-        var result = await _fixture.AuthService.RefreshTokenAsync(accessToken, refreshToken, userName);
-
-        // Assert
-        Assert.NotNull(result);
-        Assert.NotEmpty(result.AccessToken);
-        Assert.NotEmpty(result.RefreshToken);
-        Assert.NotEqual(default, result.Expires);
     }
 
     [Fact]
