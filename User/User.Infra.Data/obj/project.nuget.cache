@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "nwBvTp4jOMzj7Ad0t5YWQN4fbNr0Uy80igsdfHsLfgkkhjx9dl3pguxi2odSeU77/WaLnh1utwRMhDWDPjoRhQ==",
+  "dgSpecHash": "+V9uVIgMXaXh0IfzXolrr+8OSg8gkldi+C0AUlcjmZm5JkGZChMoMz79pDNlblhtwWcb7utWin5UASwFkH2p8w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Victória p\\Source\\Repos\\HealthMed\\User\\User.Infra.Data\\User.Infra.Data.csproj",
+  "projectFilePath": "C:\\Users\\Victória p\\source\\repos\\HealthMedTest\\User\\User.Infra.Data\\User.Infra.Data.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Victória p\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\Victória p\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
