@@ -2,8 +2,13 @@
 
 public static class StaticNotifications
 {
-    #region [Users]
-    public static Notification InvalidCredentials = new("InvalidCredentials", "Credenciais invalidas!");
+	#region [Availability]
+	public static Notification AvailabilityCreated = new("AvailabilityCreated", "Horários criados com sucesso!");
+	public static Notification AvailabilityChanged = new("AvailabilityChanged", "Horários editados com sucesso!");
+	#endregion
+
+	#region [Users]
+	public static Notification InvalidCredentials = new("InvalidCredentials", "Credenciais invalidas!");
     public static Notification UserAlreadyExists = new("UserAlreadyExists", "Usuario já cadastrado!");
     public static Notification UserNotFound = new("InvalidUser", "Usuario não encontrado!");
     public static Notification RevokeToken = new("RevokeToken", "Token revogado com sucesso!");
