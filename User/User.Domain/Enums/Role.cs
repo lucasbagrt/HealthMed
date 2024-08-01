@@ -2,7 +2,7 @@
 
 public enum Role
 {
-    DOCTOR,
-    USER,
-    ADMIN
+    USER = 1,
+    ADMIN = 2,
+    DOCTOR = 3,
 }
