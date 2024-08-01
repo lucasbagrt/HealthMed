@@ -5,6 +5,9 @@ using Appointment.Service.Services;
 using Appointment.Domain.Dtos.Appointment;
 using HealthMed.CrossCutting.Notifications;
 using AutoMapper;
+using Appointment.Domain.Interfaces.Integration;
+using HealthMed.Domain.Dtos;
+using MassTransit;
 
 namespace Appointment.UnitTests.Fixtures
 {
@@ -33,12 +36,30 @@ namespace Appointment.UnitTests.Fixtures
                 });
 
             var mockNotificationContext = new Mock<NotificationContext>();
+            var mock = new Mock<NotificationContext>();
 
+            var mockIUserIntegration = new Mock<IUserIntegration>();
+            var userInfo = new UserInfoDto
+            {
+                Email = "test@example.com",
+                FirstName = "John",
+                Id = 1,
+                LastName = "Doe",
+                Name = "John Doe"
+            };
+
+            mockIUserIntegration.Setup(func => func.GetUserInfo(It.IsAny<int>(), It.IsAny<string>()))
+                                .ReturnsAsync(userInfo);
+
+            var mockBus = new Mock<IBus>();
+ 
             AppointmentService = new AppointmentService(
                 mockMapper.Object,
                 mockAppointmentRepository.Object,
                 mockScheduleRepository.Object,
-                mockNotificationContext.Object
+                mockNotificationContext.Object,
+                mockIUserIntegration.Object,
+                mockBus.Object
             );
         }
     }

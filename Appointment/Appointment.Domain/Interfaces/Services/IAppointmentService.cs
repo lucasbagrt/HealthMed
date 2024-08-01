@@ -6,7 +6,7 @@ namespace Appointment.Domain.Interfaces.Services
     public interface IAppointmentService
     {
         Task<DefaultServiceResponseDto> CancelAppointmentAsync(int appointmentId, int patientId);
-        Task<DefaultServiceResponseDto> CreateAppointmentAsync(CreateAppointmentRequestDto createAppointmentRequestDto,int patientId);
+        Task<DefaultServiceResponseDto> CreateAppointmentAsync(CreateAppointmentRequestDto createAppointmentRequestDto,int patientId, string token);
         Task<List<AppointmentDto>> GetAllAppointmentsAsync();
         Task<AppointmentDto> GetAppointmentByIdAsync(int appointmentId);
         Task<DoctorScheduleResponseDto> GetAppointmentsByDoctorIdAsync(int doctorId);
