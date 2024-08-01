@@ -1,7 +1,8 @@
-﻿using Appointment.Domain;
-using Appointment.Domain.Dtos.Appointment;
+﻿using Appointment.Domain.Dtos.Appointment;
+using Appointment.Domain.Enums;
 using Appointment.Domain.Interfaces.Repositories;
 using Appointment.Domain.Interfaces.Services;
+using Appointment.Domain.Validators;
 using AutoMapper;
 using HealthMed.CrossCutting.Notifications;
 using HealthMed.Domain.Dtos.Default;
@@ -29,21 +30,25 @@ namespace Appointment.Service.Services
         {
             createAppointmentRequestDto.PatientId = patientId;
             var validationResult = Validate(createAppointmentRequestDto, Activator.CreateInstance<CreateAppointmentValidator>());
-            if (!validationResult.IsValid) { _notificationContext.AddNotifications(validationResult.Errors); return default; }
+            if (!validationResult.IsValid)
+            {
+                var firstErrorMessage = validationResult.Errors.FirstOrDefault()?.ErrorMessage;
+                return new DefaultServiceResponseDto
+                {
+                    Success = false,
+                    Message = firstErrorMessage ?? "Validation failed."
+                };
+            }
 
             bool existingAppointment = await _appointmentRepository.ExistsAsync(
               createAppointmentRequestDto.DoctorId,
               createAppointmentRequestDto.Date,
               createAppointmentRequestDto.Time);
 
-            if (existingAppointment)
-            {
-                _notificationContext.AddNotification(StaticNotifications.AppointmentAlreadyExists);
-                return default;
-            }
+            if (existingAppointment) return new DefaultServiceResponseDto() { Message = StaticNotifications.AppointmentAlreadyExists.Message, Success = false };
 
             var appointment = _mapper.Map<Domain.Entities.Appointment>(createAppointmentRequestDto);
-            appointment.Status = AppointmentStatusEnum.Scheduled;
+            appointment.Status = AppointmentStatus.Scheduled;
 
             await _appointmentRepository.InsertAsync(appointment);
 
@@ -58,19 +63,20 @@ namespace Appointment.Service.Services
         {
             updateAppointmentRequestDto.PatientId = patientId;
             var validationResult = Validate(updateAppointmentRequestDto, Activator.CreateInstance<UpdateAppointmentValidator>());
-            if (!validationResult.IsValid) { _notificationContext.AddNotifications(validationResult.Errors); return default; };
+            if (!validationResult.IsValid)
+            {
+                var firstErrorMessage = validationResult.Errors.FirstOrDefault()?.ErrorMessage;
+                return new DefaultServiceResponseDto
+                {
+                    Success = false,
+                    Message = firstErrorMessage ?? "Validation failed."
+                };
+            }
 
             var existingAppointment = await _appointmentRepository.SelectAsync(updateAppointmentRequestDto.AppointmentId);
-            if (existingAppointment == null)
-            {
-                _notificationContext.AddNotification(StaticNotifications.AppointmentNotFound);
-                return default;
-            }
-            else if (existingAppointment.PatientId != updateAppointmentRequestDto.PatientId)
-            {
-                _notificationContext.AddNotification(StaticNotifications.InvalidPatient);
-                return default;
-            }
+            if (existingAppointment == null) return new DefaultServiceResponseDto() { Message = StaticNotifications.AppointmentNotFound.Message, Success = false };
+            
+            if (existingAppointment.PatientId != updateAppointmentRequestDto.PatientId) return new DefaultServiceResponseDto() { Message = StaticNotifications.InvalidPatient.Message, Success = false };
 
             existingAppointment.Date = updateAppointmentRequestDto.Date;
             existingAppointment.Time = updateAppointmentRequestDto.Time;
@@ -87,18 +93,11 @@ namespace Appointment.Service.Services
         public async Task<DefaultServiceResponseDto> CancelAppointmentAsync(int appointmentId, int patientId)
         {
             var existingAppointment = await _appointmentRepository.SelectAsync(appointmentId);
-            if (existingAppointment == null)
-            {
-                _notificationContext.AddNotification(StaticNotifications.AppointmentNotFound);
-                return default;
-            }
-            else if (existingAppointment.PatientId != patientId)
-            {
-                _notificationContext.AddNotification(StaticNotifications.InvalidPatient);
-                return default;
-            }
+            if (existingAppointment == null) return new DefaultServiceResponseDto() { Message = StaticNotifications.AppointmentNotFound.Message, Success = false };
 
-            existingAppointment.Status = AppointmentStatusEnum.Cancelled;
+            if (existingAppointment.PatientId != patientId) return new DefaultServiceResponseDto() { Message = StaticNotifications.InvalidPatient.Message, Success = false };
+
+            existingAppointment.Status = AppointmentStatus.Cancelled;
             existingAppointment.IsActive = false;
 
             await _appointmentRepository.UpdateAsync(existingAppointment);
@@ -113,11 +112,6 @@ namespace Appointment.Service.Services
         public async Task<AppointmentDto> GetAppointmentByIdAsync(int appointmentId)
         {
             var appointment = await _appointmentRepository.SelectAsync(appointmentId);
-            if (appointment == null)
-            {
-                _notificationContext.AddNotification(StaticNotifications.AppointmentNotFound);
-                return default;
-            }
 
             return _mapper.Map<AppointmentDto>(appointment);
         }
@@ -125,6 +119,7 @@ namespace Appointment.Service.Services
         public async Task<List<AppointmentDto>> GetAllAppointmentsAsync()
         {
             var appointments = await _appointmentRepository.SelectAsync();
+
             return _mapper.Map<List<AppointmentDto>>(appointments);
         }
 
@@ -153,17 +148,12 @@ namespace Appointment.Service.Services
         public async Task<List<AvailableSlotDto>> GetAvailableSlotsAsync(int doctorId, DateTime date)
         {
             var appointments = await _appointmentRepository.GetAppointmentsByDoctorIdAndDateAsync(doctorId, date.Date);
-
             var workingHours = await _scheduleRepository.GetWorkingHoursByDoctorIdAsync(doctorId);
-            var availableSlots = new List<AvailableSlotDto>();
 
-            foreach (var hour in workingHours)
-            {
-                if (!appointments.Any(a => a.Time == hour.StartTime))
-                {
-                    availableSlots.Add(new AvailableSlotDto { Time = hour.StartTime });
-                }
-            }
+            var availableSlots = workingHours
+                .Where(hour => !appointments.Any(a => a.Time == hour.StartTime))
+                .Select(hour => new AvailableSlotDto { Time = hour.StartTime })
+                .ToList();
 
             return availableSlots;
         }

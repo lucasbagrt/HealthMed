@@ -18,12 +18,13 @@ public static class StaticNotifications
     #endregion
 
     #region [Appointment]
-    public static Notification AppointmentAlreadyExists = new Notification("AppointmentAlreadyExists", "Consulta já agendada para esse horário.");
-    public static Notification AppointmentCreated = new Notification("AppointmentCreated", "Consulta criada com sucesso!");
-    public static Notification AppointmentConflict = new Notification("AppointmentConflict", "Há um conflito com outra consulta agendada.");
-    public static Notification AppointmentUpdated = new Notification("AppointmentUpdated", "Consulta atualizada com sucesso!");
-    public static Notification AppointmentNotFound = new Notification("AppointmentNotFound", "Consulta não encontrada!");
-    public static Notification AppointmentCancelled = new Notification("AppointmentCancelled", "Consulta cancelada com sucesso!");
-    public static Notification InvalidPatient = new Notification("InvalidPatient", "O paciente fornecido não corresponde ao paciente do agendamento ou houve conflito.");
+    public static readonly Notification AppointmentAlreadyExists = new ("AppointmentAlreadyExists", "Consulta já agendada para esse horário.");
+    public static readonly Notification AppointmentCreated = new ("AppointmentCreated", "Consulta criada com sucesso!");
+    public static readonly Notification AppointmentConflict = new ("AppointmentConflict", "Há um conflito com outra consulta agendada.");
+    public static readonly Notification AppointmentUpdated = new ("AppointmentUpdated", "Consulta atualizada com sucesso!");
+    public static readonly Notification AppointmentNotFound = new ("AppointmentNotFound", "Consulta não encontrada!");
+    public static readonly Notification AppointmentCancelled = new ("AppointmentCancelled", "Consulta cancelada com sucesso!");
+    public static readonly Notification InvalidPatient = new ("InvalidPatient", "O paciente fornecido não corresponde ao paciente do agendamento ou houve conflito.");
     #endregion
+
 }

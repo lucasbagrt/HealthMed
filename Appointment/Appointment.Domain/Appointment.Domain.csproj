@@ -17,4 +17,8 @@
     <ProjectReference Include="..\..\Common\HealthMed.Domain\HealthMed.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Filters\" />
+  </ItemGroup>
+
 </Project>

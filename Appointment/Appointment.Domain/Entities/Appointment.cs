@@ -1,4 +1,5 @@
-﻿using HealthMed.Domain.Entities;
+﻿using Appointment.Domain.Enums;
+using HealthMed.Domain.Entities;
 using HealthMed.Domain.Interfaces.Entities;
 
 namespace Appointment.Domain.Entities
@@ -9,7 +10,7 @@ namespace Appointment.Domain.Entities
         public int PatientId { get; set; }
         public DateTime Date { get; set; }
         public TimeSpan Time { get; set; } 
-        public AppointmentStatusEnum Status { get; set; }
+        public AppointmentStatus Status { get; set; }
         public bool IsActive { get; set; }
     }
 

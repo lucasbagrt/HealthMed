@@ -20,11 +20,12 @@ COPY ["Appointment/Appointment.Service/Appointment.Service.csproj", "Appointment
 RUN dotnet restore "./Appointment/Appointment.API/Appointment.API.csproj"
 COPY . .
 WORKDIR "/src/Appointment/Appointment.API"
-RUN dotnet build "./Appointment.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet build "./Appointment.API.csproj" -c "$BUILD_CONFIGURATION" -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./Appointment.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./Appointment.API.csproj" -c "$BUILD_CONFIGURATION" -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app

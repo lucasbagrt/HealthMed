@@ -3,7 +3,7 @@ using AutoMapper;
 
 namespace Appointment.Api.Mapper;
 
-public class MappingConfig
+public static class MappingConfig
 {
     public static MapperConfiguration RegisterMaps()
     {
