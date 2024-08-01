@@ -4,7 +4,7 @@ using Availability.Infra.Data.Context;
 
 namespace Availability.Infra.Data.Repositories
 {
-    public class AvailableTimeRepository(ApplicationDbContext context) : BaseRepository<Domain.Entities.AvailableTime, int, ApplicationDbContext>(context), IAvailableTimeRepository
+    public class AvailabilityRepository(ApplicationDbContext context) : BaseRepository<Domain.Entities.Availability, int, ApplicationDbContext>(context), IAvailabilityRepository
 	{
 	}
 }

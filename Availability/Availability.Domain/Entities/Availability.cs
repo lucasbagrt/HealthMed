@@ -6,6 +6,7 @@ namespace Availability.Domain.Entities
 	public class Availability : BaseEntity, IEntity<int>
 	{
 		public int DoctorId { get; set; }
-		public virtual ICollection<AvailableTime> AvailableTimes { get; set; } = [];
+		public DateTime Start { get; set; }
+		public DateTime End { get; set; }
 	}
 }

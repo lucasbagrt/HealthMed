@@ -16,21 +16,27 @@ namespace Availability.Service
 			IMapper mapper,
 			NotificationContext notificationContext) : BaseService, IAvailabilityService
 	{
-		public async Task<DefaultServiceResponseDto?> AddAvailabilityAsync(AddAvailabilityDto addAvailabilityDto, int doctorId)
+		public async Task<DefaultServiceResponseDto?> AddAvailabilityAsync(List<AvailabilityDto> listAvailabilityDto, int doctorId)
 		{
-			var validationResult = Validate(addAvailabilityDto, Activator.CreateInstance<AddAvailabilityDtoValidator>());
+			var validationResult = Validate(listAvailabilityDto, Activator.CreateInstance<ListAvailabilityDtoValidator>());
 			if (!validationResult.IsValid)
 			{
 				notificationContext.AddNotifications(validationResult.Errors);
 				return default;
 			}
 
-			var entity = mapper.Map<Domain.Entities.Availability>(addAvailabilityDto);
+			var entities = mapper.Map<List<Domain.Entities.Availability>>(listAvailabilityDto);
 
-			entity.DoctorId = doctorId;
-			entity.CreatedAt = DateTime.Now;
+			using var transaction = context.Database.BeginTransaction();
 
-			await availabilityRepository.InsertAsync(entity);
+			foreach (var entity in entities)
+			{
+				entity.DoctorId = doctorId;
+				entity.CreatedAt = DateTime.Now;
+				await availabilityRepository.InsertAsync(entity);
+			}
+
+			transaction.Commit();
 
 			return new DefaultServiceResponseDto
 			{
@@ -39,9 +45,9 @@ namespace Availability.Service
 			};
 		}
 
-		public async Task<DefaultServiceResponseDto?> UpdateAvailabilityAsync(AvailabilityDto availabilityDto, int doctorId)
+		public async Task<DefaultServiceResponseDto?> UpdateAvailabilityAsync(List<AvailabilityDto> listAvailabilityDto, int doctorId)
 		{
-			var validationResult = Validate(availabilityDto, Activator.CreateInstance<AvailabilityDtoValidator>());
+			var validationResult = Validate(listAvailabilityDto, Activator.CreateInstance<ListAvailabilityDtoValidator>());
 			if (!validationResult.IsValid)
 			{
 				notificationContext.AddNotifications(validationResult.Errors);
@@ -50,22 +56,30 @@ namespace Availability.Service
 
 			using var transaction = context.Database.BeginTransaction();
 
+			var existing = (await availabilityRepository.SelectAsync())
+				.AsQueryable()
+				.Where(a => a.DoctorId == doctorId);
 
+			foreach (var entity in existing)
+			{
+				await availabilityRepository.DeleteAsync(entity.Id);
+			}
 
-			var entity = mapper.Map<Domain.Entities.Availability>(availabilityDto);
+			var entities = mapper.Map<List<Domain.Entities.Availability>>(listAvailabilityDto);
 
-			entity.DoctorId = doctorId;
-			entity.CreatedAt = DateTime.Now;
-
-			await availabilityRepository.InsertAsync(entity);
-
+			foreach (var entity in entities)
+			{
+				entity.DoctorId = doctorId;
+				entity.CreatedAt = DateTime.Now;
+				await availabilityRepository.InsertAsync(entity);
+			}
 
 			transaction.Commit();
 
 			return new DefaultServiceResponseDto
 			{
 				Success = true,
-				Message = StaticNotifications.AvailabilityCreated.Message
+				Message = StaticNotifications.AvailabilityChanged.Message
 			};
 		}
 

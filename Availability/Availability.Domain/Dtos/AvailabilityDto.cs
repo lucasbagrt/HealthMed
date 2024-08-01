@@ -2,7 +2,7 @@
 {
 	public class AvailabilityDto
 	{
-		public int DoctorId { get; set; }
-		public List<AvailableTimeDto> AvailableTimes { get; set; } = [];
+		public DateTime Start { get; set; }
+		public DateTime End { get; set; }
 	}
 }

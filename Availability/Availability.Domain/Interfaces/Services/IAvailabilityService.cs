@@ -1,12 +1,12 @@
-﻿using HealthMed.Domain.Dtos.Default;
-using Availability.Domain.Dtos;
+﻿using Availability.Domain.Dtos;
+using HealthMed.Domain.Dtos.Default;
 
 namespace Availability.Domain.Interfaces.Services
 {
 	public interface IAvailabilityService
 	{
-		Task<DefaultServiceResponseDto?> AddAvailabilityAsync(AddAvailabilityDto addAvailabilityDto, int doctorId);
-		Task<DefaultServiceResponseDto?> UpdateAvailabilityAsync(AvailabilityDto addAvailabilityDto, int doctorId);
+		Task<DefaultServiceResponseDto?> AddAvailabilityAsync(List<AvailabilityDto> listAvailabilityDto, int doctorId);
+		Task<DefaultServiceResponseDto?> UpdateAvailabilityAsync(List<AvailabilityDto> listAvailabilityDto, int doctorId);
 		Task<ICollection<AvailabilityDto>> GetAvailabilitiesByDoctorAsync(int doctorId);
 	}
 }

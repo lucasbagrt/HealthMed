@@ -6,7 +6,6 @@ namespace Availability.Infra.Data.Context
 	public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
 	{
 		public DbSet<Domain.Entities.Availability> Availabilities { get; set; }
-		public DbSet<Domain.Entities.AvailableTime> AvailableTimes { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{

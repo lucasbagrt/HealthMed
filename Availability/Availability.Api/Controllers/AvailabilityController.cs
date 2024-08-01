@@ -24,9 +24,9 @@ namespace Availability.API.Controllers
 		[SwaggerResponse((int)HttpStatusCode.BadRequest, Type = typeof(IReadOnlyCollection<Notification>))]
 		[SwaggerResponse((int)HttpStatusCode.InternalServerError)]
 		[SwaggerResponse((int)HttpStatusCode.Unauthorized)]
-		public async Task<IActionResult> Add([FromBody] AddAvailabilityDto addAvailabilityDto)
+		public async Task<IActionResult> Add([FromBody] List<AvailabilityDto> listAvailabilityDto)
 		{
-			var addResult = await _availabilityService.AddAvailabilityAsync(addAvailabilityDto, this.GetUserIdLogged());
+			var addResult = await _availabilityService.AddAvailabilityAsync(listAvailabilityDto, this.GetUserIdLogged());
 			return Ok(addResult);
 		}
 
@@ -37,9 +37,9 @@ namespace Availability.API.Controllers
 		[SwaggerResponse((int)HttpStatusCode.BadRequest, Type = typeof(IReadOnlyCollection<Notification>))]
 		[SwaggerResponse((int)HttpStatusCode.InternalServerError)]
 		[SwaggerResponse((int)HttpStatusCode.Unauthorized)]
-		public async Task<IActionResult> Update([FromBody] AvailabilityDto availabilityDto)
+		public async Task<IActionResult> Update([FromBody] List<AvailabilityDto> listAvailabilityDto)
 		{
-			var addResult = await _availabilityService.UpdateAvailabilityAsync(availabilityDto, this.GetUserIdLogged());
+			var addResult = await _availabilityService.UpdateAvailabilityAsync(listAvailabilityDto, this.GetUserIdLogged());
 			return Ok(addResult);
 		}
 

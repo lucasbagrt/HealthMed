@@ -61,9 +61,7 @@ services.AddScoped<NotificationContext>();
 services.AddScoped<IBaseService, BaseService>();
 
 services.AddScoped<IAvailabilityService, AvailabilityService>();
-
 services.AddScoped<IAvailabilityRepository, AvailabilityRepository>();
-services.AddScoped<IAvailableTimeRepository, AvailableTimeRepository>();
 #endregion
 
 #region [Swagger]            

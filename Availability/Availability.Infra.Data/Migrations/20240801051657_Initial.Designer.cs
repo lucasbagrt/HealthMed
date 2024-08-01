@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Availability.Infra.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240801023834_Initial")]
+    [Migration("20240801051657_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -42,25 +42,6 @@ namespace Availability.Infra.Data.Migrations
                     b.Property<int>("DoctorId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("Availability", (string)null);
-                });
-
-            modelBuilder.Entity("Availability.Domain.Entities.AvailableTime", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("AvailabilityId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
                     b.Property<DateTime>("End")
                         .HasColumnType("datetime2");
 
@@ -69,25 +50,7 @@ namespace Availability.Infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AvailabilityId");
-
-                    b.ToTable("AvailableTimes");
-                });
-
-            modelBuilder.Entity("Availability.Domain.Entities.AvailableTime", b =>
-                {
-                    b.HasOne("Availability.Domain.Entities.Availability", "Availability")
-                        .WithMany("AvailableTimes")
-                        .HasForeignKey("AvailabilityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Availability");
-                });
-
-            modelBuilder.Entity("Availability.Domain.Entities.Availability", b =>
-                {
-                    b.Navigation("AvailableTimes");
+                    b.ToTable("Availability", (string)null);
                 });
 #pragma warning restore 612, 618
         }

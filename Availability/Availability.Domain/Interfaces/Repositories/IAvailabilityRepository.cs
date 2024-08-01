@@ -2,7 +2,7 @@
 
 namespace Availability.Domain.Interfaces.Repositories
 {
-    public interface IAvailableTimeRepository : IBaseRepository<Entities.AvailableTime, int>
+    public interface IAvailabilityRepository : IBaseRepository<Entities.Availability, int>
     {
     }
 }

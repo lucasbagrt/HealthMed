@@ -3,7 +3,8 @@
 public static class StaticNotifications
 {
 	#region [Availability]
-	public static Notification AvailabilityCreated = new("AvailabilityCreated", "Horário criado com sucesso!");
+	public static Notification AvailabilityCreated = new("AvailabilityCreated", "Horários criados com sucesso!");
+	public static Notification AvailabilityChanged = new("AvailabilityChanged", "Horários editados com sucesso!");
 	#endregion
 
 	#region [Users]

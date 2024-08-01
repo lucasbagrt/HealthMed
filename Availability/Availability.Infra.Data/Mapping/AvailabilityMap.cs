@@ -9,11 +9,6 @@ namespace Availability.Infra.Data.Mapping
 		{
 			builder.ToTable("Availability");
 			builder.HasKey(prop => prop.Id);
-
-			builder.HasMany(e => e.AvailableTimes)
-					.WithOne(e => e.Availability)
-					.HasForeignKey(e => e.AvailabilityId)
-					.HasPrincipalKey(e => e.Id);
 		}
 	}
 }
