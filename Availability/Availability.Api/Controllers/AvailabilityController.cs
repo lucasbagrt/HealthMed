@@ -43,16 +43,15 @@ namespace Availability.API.Controllers
 			return Ok(addResult);
 		}
 
-		[HttpGet]
-		[Authorize(Roles = StaticUserRoles.DOCTOR)]
+		[HttpGet("{doctorId}")]
 		[SwaggerOperation(Summary = "Get availabilities")]
 		[SwaggerResponse((int)HttpStatusCode.OK, Type = typeof(AvailabilityDto))]
 		[SwaggerResponse((int)HttpStatusCode.BadRequest, Type = typeof(IReadOnlyCollection<Notification>))]
 		[SwaggerResponse((int)HttpStatusCode.NotFound)]
 		[SwaggerResponse((int)HttpStatusCode.InternalServerError)]
-		public async Task<IActionResult> GetAvailabilities()
+		public async Task<IActionResult> GetAvailabilities(int doctorId)
 		{
-			var result = await _availabilityService.GetAvailabilitiesByDoctorAsync(this.GetUserIdLogged());
+			var result = await _availabilityService.GetAvailabilitiesByDoctorAsync(doctorId);
 			if (result?.Any() == false)
 				return NotFound();
 
