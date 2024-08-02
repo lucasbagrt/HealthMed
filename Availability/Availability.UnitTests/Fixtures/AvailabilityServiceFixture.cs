@@ -24,7 +24,6 @@ namespace Availability.UnitTests.Fixtures
 			var availabilityRepositoryMock = new Mock<IAvailabilityRepository>();
 			var mapperMock = new Mock<IMapper>();
 			var notificationContextMock = new Mock<NotificationContext>();
-			var configurationMock = new Mock<IConfiguration>();
 
 			// Cenário: GetAllAsync com filtro válido
 			var users = new List<Domain.Entities.Availability>
