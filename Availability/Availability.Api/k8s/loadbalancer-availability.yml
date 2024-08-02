@@ -1,13 +1,12 @@
 ﻿apiVersion: v1
 kind: Service
 metadata:
-  name: apiuser-loadbalancer
+  name: apiavailability-loadbalancer
 spec:
   selector:
-    app: apiuser
+    app: apiavailability
   ports:
     - protocol: TCP
-      port: 80
-      targetPort: 80
-      nodePort: 31840
+      port: 81
+      targetPort: 81
   type: LoadBalancer

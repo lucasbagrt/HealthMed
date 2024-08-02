@@ -1,10 +1,8 @@
-#See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
-USER app
+
 WORKDIR /app
-EXPOSE 8080
-EXPOSE 8081
+EXPOSE 82
+EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
@@ -17,7 +15,7 @@ COPY ["User/User.Domain/User.Domain.csproj", "User/User.Domain/"]
 COPY ["User/User.Infra.Data/User.Infra.Data.csproj", "User/User.Infra.Data/"]
 COPY ["Common/HealthMed.Infra.Data/HealthMed.Infra.Data.csproj", "Common/HealthMed.Infra.Data/"]
 COPY ["User/User.Service/User.Service.csproj", "User/User.Service/"]
-RUN dotnet restore "./User/User.API/User.API.csproj"
+RUN dotnet restore "./User/User.API/./User.API.csproj"
 COPY . .
 WORKDIR "/src/User/User.API"
 RUN dotnet build "./User.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
@@ -29,5 +27,5 @@ RUN dotnet publish "./User.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENV ASPNETCORE_URLS=http://+:80
+ENV ASPNETCORE_URLS=http://+:82
 ENTRYPOINT ["dotnet", "User.API.dll"]
