@@ -41,7 +41,7 @@ public class UserController : Controller
     }
 
     [HttpGet("{id}")]
-    [Authorize(Roles = StaticUserRoles.ADMIN)]
+    //[Authorize(Roles = StaticUserRoles.ADMIN)]
     [SwaggerOperation(Summary = "Get user by id")]
     [SwaggerResponse((int)HttpStatusCode.OK, Type = typeof(UserResponseDto))]
     [SwaggerResponse((int)HttpStatusCode.NoContent)]

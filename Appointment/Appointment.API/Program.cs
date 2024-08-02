@@ -16,7 +16,11 @@ using Appointment.Infra.Data.Repositories;
 using Appointment.Data.Repositories;
 using Appointment.Service.Services;
 using Appointment.Domain.Interfaces.Services;
-
+using MassTransit;
+using HealthMed.CrossCutting.QueueMessenge;
+using Appointment.Domain.Interfaces.Integration;
+using Appointment.Service.Integration;
+using Appointment.Service.QueueMessege;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -62,6 +66,7 @@ services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 services.AddScoped<NotificationContext>();
 services.AddScoped<IBaseService, BaseService>(); 
 services.AddScoped<IAppointmentService, AppointmentService>();
+services.AddScoped<IUserIntegration, UserIntegration>();
 
 services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 services.AddScoped<IScheduleRepository, ScheduleRepository>();
@@ -113,6 +118,37 @@ services.AddControllers(options =>
 
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();
+
+#region [Service Bus]
+var connection = builder.Configuration.GetSection("MassTransitAzure")["Connection"];
+builder.Services.AddMassTransit(x =>
+{
+    x.AddConsumer<AppointmentConsumer>();
+
+    x.UsingAzureServiceBus((context, cfg) =>
+    {
+        cfg.Host(connection);
+
+        cfg.Message<CreateAppointment>(x =>
+        {
+            x.SetEntityName("topico");
+        });
+
+        cfg.SubscriptionEndpoint("sub-1", "topico", e =>
+        {
+            e.ConfigureConsumer<AppointmentConsumer>(context);
+        });
+
+        cfg.SubscriptionEndpoint("sub-2", "topico", e =>
+        {
+            e.Consumer<SendEmailConsumer>();
+        });
+    });
+});
+
+
+services.AddMassTransitHostedService();
+#endregion
 
 var app = builder.Build();
 

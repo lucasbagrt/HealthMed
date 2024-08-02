@@ -32,7 +32,7 @@ namespace Appointment.API.Controllers
         [SwaggerResponse((int)HttpStatusCode.Unauthorized)]
         public async Task<IActionResult> Create([FromBody] CreateAppointmentRequestDto request)
         {
-            var result = await _appointmentService.CreateAppointmentAsync(request, this.GetUserIdLogged());
+            var result = await _appointmentService.CreateAppointmentAsync(request, this.GetUserIdLogged(), this.GetAccessToken());
             if (result == null || !result.Success)
             {
                 return BadRequest(result?.Message);
