@@ -27,7 +27,7 @@ namespace Availability.Service
 
 			var entities = mapper.Map<List<Domain.Entities.Availability>>(listAvailabilityDto);
 
-			using var transaction = context.Database.BeginTransaction();
+			using var transaction = await context.Database.BeginTransactionAsync();
 
 			foreach (var entity in entities)
 			{
@@ -36,7 +36,7 @@ namespace Availability.Service
 				await availabilityRepository.InsertAsync(entity);
 			}
 
-			transaction.Commit();
+			await transaction.CommitAsync();
 
 			return new DefaultServiceResponseDto
 			{
@@ -54,7 +54,7 @@ namespace Availability.Service
 				return default;
 			}
 
-			using var transaction = context.Database.BeginTransaction();
+			using var transaction = await context.Database.BeginTransactionAsync();
 
 			var existing = (await availabilityRepository.SelectAsync())
 				.AsQueryable()
@@ -74,7 +74,7 @@ namespace Availability.Service
 				await availabilityRepository.InsertAsync(entity);
 			}
 
-			transaction.Commit();
+			await transaction.CommitAsync();
 
 			return new DefaultServiceResponseDto
 			{

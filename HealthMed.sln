@@ -47,6 +47,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Availability.Service", "Ava
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Availability.API", "Availability\Availability.Api\Availability.API.csproj", "{9E21005C-687A-4CA2-9726-1721028BFD85}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Availability.UnitTests", "Availability\Availability.UnitTests\Availability.UnitTests.csproj", "{9FFFDBAE-9B2E-471B-9FD6-61FBBD1C5983}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -125,6 +127,10 @@ Global
 		{9E21005C-687A-4CA2-9726-1721028BFD85}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E21005C-687A-4CA2-9726-1721028BFD85}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E21005C-687A-4CA2-9726-1721028BFD85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FFFDBAE-9B2E-471B-9FD6-61FBBD1C5983}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FFFDBAE-9B2E-471B-9FD6-61FBBD1C5983}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FFFDBAE-9B2E-471B-9FD6-61FBBD1C5983}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FFFDBAE-9B2E-471B-9FD6-61FBBD1C5983}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -148,6 +154,7 @@ Global
 		{968C8462-7BAE-4A47-9B82-A84FF4D64B9B} = {F6BE9A71-6742-4110-B7CC-E685AE128605}
 		{45495454-17E3-4411-8C55-E30618F3FB34} = {F6BE9A71-6742-4110-B7CC-E685AE128605}
 		{9E21005C-687A-4CA2-9726-1721028BFD85} = {F6BE9A71-6742-4110-B7CC-E685AE128605}
+		{9FFFDBAE-9B2E-471B-9FD6-61FBBD1C5983} = {F6BE9A71-6742-4110-B7CC-E685AE128605}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7AE75A7C-A28A-4BAC-A79A-446447CB9264}
