@@ -1,4 +1,6 @@
 ﻿using Appointment.Infra.Data.Mapping;
+using Availability.Domain.Entities;
+using Availability.Infra.Data.Mapping;
 using HealthMed.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +13,7 @@ public class ApplicationDbContext : DbContext
     }
 
     public DbSet<Domain.Entities.Appointment> Appointments { get; set; }
+    public DbSet<Availability.Domain.Entities.Availability> Availabilities { get; set; }
     public DbSet<SeedHistory> SeedHistories { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -18,9 +21,6 @@ public class ApplicationDbContext : DbContext
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.ApplyConfiguration(new AppointmentMap());
-    }
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseLazyLoadingProxies();
+        modelBuilder.ApplyConfiguration(new AvailabilityMap());
     }
 }

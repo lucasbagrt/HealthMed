@@ -13,7 +13,6 @@ using Appointment.Infra.Data.Context;
 using Appointment.Api.Mapper;
 using Appointment.Domain.Interfaces.Repositories;
 using Appointment.Infra.Data.Repositories;
-using Appointment.Data.Repositories;
 using Appointment.Service.Services;
 using Appointment.Domain.Interfaces.Services;
 using MassTransit;
@@ -21,6 +20,8 @@ using HealthMed.CrossCutting.QueueMessenge;
 using Appointment.Domain.Interfaces.Integration;
 using Appointment.Service.Integration;
 using Appointment.Service.QueueMessege;
+using Availability.Domain.Interfaces.Repositories;
+using Availability.Infra.Data.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -68,8 +69,8 @@ services.AddScoped<IBaseService, BaseService>();
 services.AddScoped<IAppointmentService, AppointmentService>();
 services.AddScoped<IUserIntegration, UserIntegration>();
 
+services.AddScoped<IAvailabilityRepository, AvailabilityRepository>();
 services.AddScoped<IAppointmentRepository, AppointmentRepository>();
-services.AddScoped<IScheduleRepository, ScheduleRepository>();
 #endregion
 
 #region [Swagger]            

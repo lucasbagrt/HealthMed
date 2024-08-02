@@ -5,6 +5,7 @@ using Appointment.Domain.Interfaces.Repositories;
 using Appointment.Domain.Interfaces.Services;
 using Appointment.Domain.Validators;
 using AutoMapper;
+using Availability.Domain.Interfaces.Repositories;
 using HealthMed.CrossCutting.Notifications;
 using HealthMed.CrossCutting.QueueMessenge;
 using HealthMed.Domain.Dtos.Default;
@@ -17,21 +18,20 @@ public class AppointmentService : BaseService, IAppointmentService
 {
     private readonly IMapper _mapper;
     private readonly IAppointmentRepository _appointmentRepository;
-    private readonly IScheduleRepository _scheduleRepository;
+    private readonly IAvailabilityRepository _availabilityRepository;
     private readonly IUserIntegration _userIntegration;
     private readonly IBus _bus;
 
-    public AppointmentService(IMapper mapper, IAppointmentRepository appointmentRepository, IScheduleRepository scheduleRepository, IUserIntegration userIntegration, IBus bus)
+    public AppointmentService(IMapper mapper, IAppointmentRepository appointmentRepository, IAvailabilityRepository availabilityRepository, IUserIntegration userIntegration, IBus bus)
     {
         _mapper = mapper;
         _appointmentRepository = appointmentRepository;
-        _scheduleRepository = scheduleRepository;
+        _availabilityRepository = availabilityRepository;
         _userIntegration = userIntegration;
         _bus = bus;
     }
 
-    public async Task<DefaultServiceResponseDto> CreateAppointmentAsync(CreateAppointmentRequestDto createAppointmentRequestDto,
-            int patientId, string token)
+    public async Task<DefaultServiceResponseDto> CreateAppointmentAsync(CreateAppointmentRequestDto createAppointmentRequestDto, int patientId, string token)
     {
         createAppointmentRequestDto.PatientId = patientId;
         var validationResult = Validate(createAppointmentRequestDto, Activator.CreateInstance<CreateAppointmentValidator>());
@@ -125,43 +125,56 @@ public class AppointmentService : BaseService, IAppointmentService
         return _mapper.Map<AppointmentDto>(appointment);
     }
 
-        public async Task<PatientAppointmentsResponseDto> GetAppointmentsByPatientIdAsync(int patientId)
+    public async Task<PatientAppointmentsResponseDto> GetAppointmentsByPatientIdAsync(int patientId)
+    {
+        var appointments = await _appointmentRepository.SelectAsync();
+        var patientAppointments = appointments
+            .Where(p => p.PatientId == patientId && p.IsActive)
+            .ToList();
+
+        return new PatientAppointmentsResponseDto
         {
-            var appointments = await _appointmentRepository.SelectAsync();
-            var patientAppointments = appointments
-                .Where(p => p.PatientId == patientId && p.IsActive)
-                .ToList();
+            PatientId = patientId,
+            Appointments = _mapper.Map<List<AppointmentDto>>(patientAppointments)
+        };
+    }
 
-            return new PatientAppointmentsResponseDto
-            {
-                PatientId = patientId,
-                Appointments = _mapper.Map<List<AppointmentDto>>(patientAppointments)
-            };
-        }
+    public async Task<DoctorScheduleResponseDto> GetAppointmentsByDoctorIdAsync(int doctorId)
+    {
+        var appointments = await _appointmentRepository.SelectAsync();
+        var doctorAppointments = appointments
+            .Where(p => p.DoctorId == doctorId && p.IsActive)
+            .ToList();
 
-        public async Task<DoctorScheduleResponseDto> GetAppointmentsByDoctorIdAsync(int doctorId)
+        return new DoctorScheduleResponseDto
         {
-            var appointments = await _appointmentRepository.SelectAsync();
-            var doctorAppointments = appointments
-                .Where(p => p.DoctorId == doctorId && p.IsActive)
-                .ToList();
-
-            return new DoctorScheduleResponseDto
-            {
-                DoctorId = doctorId,
-                Appointments = _mapper.Map<List<AppointmentDto>>(doctorAppointments)
-            };
-        }
+            DoctorId = doctorId,
+            Appointments = _mapper.Map<List<AppointmentDto>>(doctorAppointments)
+        };
+    }
 
     public async Task<List<AvailableSlotDto>> GetAvailableSlotsAsync(int doctorId, DateTime date)
     {
         var appointments = await _appointmentRepository.GetAppointmentsByDoctorIdAndDateAsync(doctorId, date.Date);
-        var workingHours = await _scheduleRepository.GetWorkingHoursByDoctorIdAsync(doctorId);
 
-        var availableSlots = workingHours
-            .Where(hour => !appointments.Any(a => a.Time == hour.StartTime))
-            .Select(hour => new AvailableSlotDto { Time = hour.StartTime })
+        var availabilities = await _availabilityRepository.SelectAsync();
+
+        var filteredAvailabilities = availabilities
+            .Where(a => a.DoctorId == doctorId && a.Start.Date == date.Date)
             .ToList();
+
+        var availableSlots = new List<AvailableSlotDto>();
+
+        foreach (var availability in filteredAvailabilities)
+        {
+            for (var time = availability.Start; time < availability.End; time = time.AddMinutes(30))
+            {
+                if (!appointments.Any(a => a.Time == time.TimeOfDay))
+                {
+                    availableSlots.Add(new AvailableSlotDto { Time = time.TimeOfDay });
+                }
+            }
+        }
 
         return availableSlots;
     }

@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Availability\Availability.Domain\Availability.Domain.csproj" />
     <ProjectReference Include="..\Appointment.Service\Appointment.Service.csproj" />
   </ItemGroup>
 

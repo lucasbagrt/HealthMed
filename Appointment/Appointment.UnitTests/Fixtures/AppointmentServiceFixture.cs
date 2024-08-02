@@ -2,12 +2,14 @@
 using Appointment.Domain.Interfaces.Repositories;
 using Appointment.Domain.Interfaces.Services;
 using Appointment.Service.Services;
-using Appointment.Domain.Dtos.Appointment;
-using HealthMed.CrossCutting.Notifications;
 using AutoMapper;
 using Appointment.Domain.Interfaces.Integration;
 using HealthMed.Domain.Dtos;
 using MassTransit;
+using Availability.Domain.Dtos;
+using Appointment.Domain.Enums;
+using Availability.Domain.Interfaces.Repositories;
+using HealthMed.CrossCutting.Notifications;
 
 namespace Appointment.UnitTests.Fixtures
 {
@@ -19,20 +21,38 @@ namespace Appointment.UnitTests.Fixtures
         {
             var mockMapper = new Mock<IMapper>();
 
+            mockMapper.Setup(m => m.Map<List<AvailabilityDto>>(It.IsAny<IEnumerable<Availability.Domain.Entities.Availability>>()))
+                      .Returns((IEnumerable<Availability.Domain.Entities.Availability> source) =>
+                          source.Select(a => new AvailabilityDto
+                          {
+                              Start = a.Start,
+                              End = a.End
+                          }).ToList());
+
             var mockAppointmentRepository = new Mock<IAppointmentRepository>();
-            mockAppointmentRepository.Setup(repo => repo.GetAppointmentsByDoctorIdAndDateAsync(It.IsAny<int>(), It.IsAny<DateTime>()))
-                .ReturnsAsync(new List<Domain.Entities.Appointment>
+
+            mockAppointmentRepository.Setup(repo => repo.ExistsAsync(It.IsAny<int>(), It.IsAny<DateTime>(), It.IsAny<TimeSpan>()))
+                .ReturnsAsync(false);
+
+            mockAppointmentRepository.Setup(repo => repo.SelectAsync(It.IsAny<int>()))
+                .ReturnsAsync(new Domain.Entities.Appointment
                 {
-                    new Domain.Entities.Appointment { Time = new TimeSpan(10, 0, 0) },
-                    new Domain.Entities.Appointment { Time = new TimeSpan(14, 0, 0) }
+                    Id = 1,
+                    DoctorId = 1,
+                    PatientId = 1,
+                    Date = DateTime.Today,
+                    Time = new TimeSpan(10, 0, 0),
+                    Status = AppointmentStatus.Scheduled,
+                    IsActive = true
                 });
 
-            var mockScheduleRepository = new Mock<IScheduleRepository>();
-            mockScheduleRepository.Setup(repo => repo.GetWorkingHoursByDoctorIdAsync(It.IsAny<int>()))
-                .ReturnsAsync(new List<WorkingHourDto>
+            var mockAvailabilityRepository = new Mock<IAvailabilityRepository>();
+
+            mockAvailabilityRepository.Setup(repo => repo.SelectAsync())
+                .ReturnsAsync(new List<Availability.Domain.Entities.Availability>
                 {
-                    new WorkingHourDto { StartTime = new TimeSpan(9, 0, 0), EndTime = new TimeSpan(12, 0, 0) },
-                    new WorkingHourDto { StartTime = new TimeSpan(13, 0, 0), EndTime = new TimeSpan(17, 0, 0) }
+                    new Availability.Domain.Entities.Availability { DoctorId = 1, Start = new DateTime(2024, 8, 1, 9, 0, 0), End = new DateTime(2024, 8, 1, 12, 0, 0) },
+                    new Availability.Domain.Entities.Availability { DoctorId = 1, Start = new DateTime(2024, 8, 1, 13, 0, 0), End = new DateTime(2024, 8, 1, 17, 0, 0) }
                 });
 
             var mockNotificationContext = new Mock<NotificationContext>();
@@ -52,16 +72,14 @@ namespace Appointment.UnitTests.Fixtures
                                 .ReturnsAsync(userInfo);
 
             var mockBus = new Mock<IBus>();
- 
+
             AppointmentService = new AppointmentService(
                 mockMapper.Object,
                 mockAppointmentRepository.Object,
-                mockScheduleRepository.Object,
-                mockNotificationContext.Object,
+                mockAvailabilityRepository.Object,
                 mockIUserIntegration.Object,
                 mockBus.Object
             );
         }
     }
 }
-
