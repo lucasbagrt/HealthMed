@@ -7,7 +7,5 @@ namespace Appointment.Domain.Interfaces.Repositories
     {
         Task<bool> ExistsAsync(int doctorId, DateTime date, TimeSpan time);
         Task<IList<Entities.Appointment>> GetAppointmentsByDoctorIdAndDateAsync(int doctorId, DateTime date);
-        Task<IList<Entities.Appointment>> GetAppointmentsByDoctorIdAsync(int doctorId);
-        Task<IList<Entities.Appointment>> GetAppointmentsByPatientIdAsync(int patientId);
     }
 }

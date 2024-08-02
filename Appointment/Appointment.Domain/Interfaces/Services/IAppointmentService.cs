@@ -7,7 +7,6 @@ namespace Appointment.Domain.Interfaces.Services
     {
         Task<DefaultServiceResponseDto> CancelAppointmentAsync(int appointmentId, int patientId);
         Task<DefaultServiceResponseDto> CreateAppointmentAsync(CreateAppointmentRequestDto createAppointmentRequestDto,int patientId);
-        Task<List<AppointmentDto>> GetAllAppointmentsAsync();
         Task<AppointmentDto> GetAppointmentByIdAsync(int appointmentId);
         Task<DoctorScheduleResponseDto> GetAppointmentsByDoctorIdAsync(int doctorId);
         Task<PatientAppointmentsResponseDto> GetAppointmentsByPatientIdAsync(int patientId);

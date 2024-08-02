@@ -91,18 +91,6 @@ namespace Appointment.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet]
-        [Authorize(Roles = StaticUserRoles.USER)]
-        [SwaggerOperation(Summary = "Get all appointments")]
-        [SwaggerResponse((int)HttpStatusCode.OK, Type = typeof(List<AppointmentDto>))]
-        [SwaggerResponse((int)HttpStatusCode.InternalServerError)]
-        [SwaggerResponse((int)HttpStatusCode.Unauthorized)]
-        public async Task<IActionResult> GetAll()
-        {
-            var result = await _appointmentService.GetAllAppointmentsAsync();
-            return Ok(result);
-        }
-
         [HttpGet("doctor")]
         [Authorize(Roles = StaticUserRoles.DOCTOR)]
         [SwaggerOperation(Summary = "Get appointments by doctor ID")]

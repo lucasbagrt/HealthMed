@@ -48,7 +48,9 @@ namespace Appointment.Service.Services
             if (existingAppointment) return new DefaultServiceResponseDto() { Message = StaticNotifications.AppointmentAlreadyExists.Message, Success = false };
 
             var appointment = _mapper.Map<Domain.Entities.Appointment>(createAppointmentRequestDto);
+
             appointment.Status = AppointmentStatus.Scheduled;
+            appointment.IsActive = true;
 
             await _appointmentRepository.InsertAsync(appointment);
 
@@ -116,32 +118,31 @@ namespace Appointment.Service.Services
             return _mapper.Map<AppointmentDto>(appointment);
         }
 
-        public async Task<List<AppointmentDto>> GetAllAppointmentsAsync()
-        {
-            var appointments = await _appointmentRepository.SelectAsync();
-
-            return _mapper.Map<List<AppointmentDto>>(appointments);
-        }
-
-        public async Task<DoctorScheduleResponseDto> GetAppointmentsByDoctorIdAsync(int doctorId)
-        {
-            var appointments = await _appointmentRepository.GetAppointmentsByDoctorIdAsync(doctorId);
-
-            return new DoctorScheduleResponseDto
-            {
-                DoctorId = doctorId,
-                Appointments = _mapper.Map<List<AppointmentDto>>(appointments)
-            };
-        }
-
         public async Task<PatientAppointmentsResponseDto> GetAppointmentsByPatientIdAsync(int patientId)
         {
-            var appointments = await _appointmentRepository.GetAppointmentsByPatientIdAsync(patientId);
+            var appointments = await _appointmentRepository.SelectAsync();
+            var patientAppointments = appointments
+                .Where(p => p.PatientId == patientId && p.IsActive)
+                .ToList();
 
             return new PatientAppointmentsResponseDto
             {
                 PatientId = patientId,
-                Appointments = _mapper.Map<List<AppointmentDto>>(appointments)
+                Appointments = _mapper.Map<List<AppointmentDto>>(patientAppointments)
+            };
+        }
+
+        public async Task<DoctorScheduleResponseDto> GetAppointmentsByDoctorIdAsync(int doctorId)
+        {
+            var appointments = await _appointmentRepository.SelectAsync();
+            var doctorAppointments = appointments
+                .Where(p => p.DoctorId == doctorId && p.IsActive)
+                .ToList();
+
+            return new DoctorScheduleResponseDto
+            {
+                DoctorId = doctorId,
+                Appointments = _mapper.Map<List<AppointmentDto>>(doctorAppointments)
             };
         }
 

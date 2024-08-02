@@ -10,6 +10,8 @@ public static class MappingConfig
         var mappingConfig = new MapperConfiguration(config =>
         {						
 			config.CreateMap<AppointmentDto, Domain.Entities.Appointment>().ReverseMap();
+			config.CreateMap<CreateAppointmentRequestDto, Domain.Entities.Appointment>().ReverseMap();
+			config.CreateMap<UpdateAppointmentRequestDto, Domain.Entities.Appointment>().ReverseMap();
 		});
         return mappingConfig;
     }

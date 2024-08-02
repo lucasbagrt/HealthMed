@@ -13,20 +13,6 @@ namespace Appointment.Infra.Data.Repositories
                 .AnyAsync(a => a.DoctorId == doctorId && a.Date == date && a.Time == time);
         }
 
-        public async Task<IList<Domain.Entities.Appointment>> GetAppointmentsByDoctorIdAsync(int doctorId)
-        {
-            return await _dataContext.Set<Domain.Entities.Appointment>()
-                .Where(a => a.DoctorId == doctorId)
-                .ToListAsync();
-        }
-
-        public async Task<IList<Domain.Entities.Appointment>> GetAppointmentsByPatientIdAsync(int patientId)
-        {
-            return await _dataContext.Set<Domain.Entities.Appointment>()
-                .Where(a => a.PatientId == patientId)
-                .ToListAsync();
-        }
-
         public async Task<IList<Domain.Entities.Appointment>> GetAppointmentsByDoctorIdAndDateAsync(int doctorId, DateTime date)
         {
             return await _dataContext.Appointments
