@@ -54,3 +54,4 @@ Plataforma de agendamento de consultas medicas, desenvolvida em .NET 8 com arqui
 
 ### Integração com SonarCloud
 - A análise de código estático usando SonarCloud já está configurada no pipeline de CI/CD para a branch main. O SonarCloud ajuda a garantir a qualidade do código, identificando bugs e vulnerabilidades.
+- https://sonarcloud.io/summary/overall?id=lucasbagrt_HealthMed
