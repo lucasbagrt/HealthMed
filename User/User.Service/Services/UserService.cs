@@ -12,6 +12,7 @@ using HealthMed.Domain.Dtos;
 using HealthMed.Domain.Dtos.Default;
 using HealthMed.Domain.Extensions;
 using HealthMed.Service.Services;
+using HealthMed.Domain.Utilities;
 
 namespace User.Service.Services;
 
@@ -37,7 +38,7 @@ public class UserService : BaseService, IUserService
         _configuration = configuration;       
     }
 
-    public async Task<ICollection<UserResponseDto>> GetAllAsync(UserFilter filter)
+    public async Task<ICollection<UserResponseDto>> GetAllAsync(UserFilter filter, bool onlyDoctors = false)
     {
         var users = (await _userRepository
             .SelectAsync())
@@ -61,6 +62,9 @@ public class UserService : BaseService, IUserService
             var userRoles = await _userManager.GetRolesAsync(await _userManager.FindByIdAsync(user.Id.ToString()));
             user.Role = userRoles.FirstOrDefault();
         }
+
+        if (onlyDoctors)
+            response = response.Where(t => t.Role == StaticUserRoles.DOCTOR).ToList();
 
         return response;
     }

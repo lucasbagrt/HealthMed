@@ -3,8 +3,14 @@
 public static class StaticNotifications
 {
 	#region [Availability]
-	public static Notification AvailabilityCreated = new("AvailabilityCreated", "Horários criados com sucesso!");
-	public static Notification AvailabilityChanged = new("AvailabilityChanged", "Horários editados com sucesso!");
+	public static Notification AvailabilityAlreadyExists = new("AvailabilityAlreadyExists", "Horários já cadastrado!");
+	public static Notification AvailabilityCreated = new("AvailabilityCreated", "Horário criado com sucesso!");
+	public static Notification AvailabilityChanged = new("AvailabilityChanged", "Horário editado com sucesso!");
+	public static Notification AvailabilityNotAvailable = new("AvailabilityNotAvailable", "Horario indisponivel!");
+	public static Notification AvailabilityNotFound = new("AvailabilityNotFound", "Horario não encontrado!");
+	public static Notification AvailabilityDoesNotBelongToDoctor = new("AvailabilityDoesNotBelongToDoctor", "Horario não pertence ao medico logado!");
+	public static Notification AvailabilityHasAppointment = new("AvailabilityHasAppointment", "Existem agendamentos para o horario!");
+	public static Notification AvailabilityDeleted = new("AvailabilityDeleted", "Horario deletado com sucesso!");
 	#endregion
 
 	#region [Users]

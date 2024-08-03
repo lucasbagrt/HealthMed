@@ -19,20 +19,18 @@ public class AppointmentConsumer : IConsumer<CreateAppointment>
     {
         using (var scope = _serviceProvider.CreateScope())
         {
-            var appointmentRepository = scope.ServiceProvider.GetRequiredService<IAppointmentRepository>();
+            var _appointmentRepository = scope.ServiceProvider.GetRequiredService<IAppointmentRepository>();
 
             var appointmentDB = new Domain.Entities.Appointment
             {
                 CreatedAt = DateTime.UtcNow,
-                IsActive = true,
-                Date = context.Message.Date,
-                DoctorId = context.Message.DoctorId,
+                IsActive = true,                
                 PatientId = context.Message.PatientId,
-                Time = context.Message.Time,
+                AvailabilityId = context.Message.AvailabilityId,
                 Status = AppointmentStatus.Scheduled,
             };
 
-            await appointmentRepository.InsertAsync(appointmentDB);
+            await _appointmentRepository.InsertAsync(appointmentDB);
         }
     }
 }

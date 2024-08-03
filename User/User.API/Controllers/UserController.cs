@@ -24,6 +24,19 @@ public class UserController : Controller
         _userService = userService;
     }
 
+    [HttpGet("Doctors")]
+    [SwaggerOperation(Summary = "Get all doctors")]
+    [SwaggerResponse((int)HttpStatusCode.OK, Type = typeof(IList<UserResponseDto>))]
+    [SwaggerResponse((int)HttpStatusCode.InternalServerError)]       
+    public async Task<IActionResult> GetAllDoctors([FromQuery] UserFilter filter)
+    {
+        var users = await _userService.GetAllAsync(filter, true);
+        if (users is null)
+            return NotFound();
+
+        return Ok(users);
+    }
+
     [HttpGet]
     [Authorize(Roles = StaticUserRoles.ADMIN)]
     [SwaggerOperation(Summary = "Get all users")]
@@ -40,8 +53,7 @@ public class UserController : Controller
         return Ok(users);
     }
 
-    [HttpGet("{id}")]
-    //[Authorize(Roles = StaticUserRoles.ADMIN)]
+    [HttpGet("{id}")]    
     [SwaggerOperation(Summary = "Get user by id")]
     [SwaggerResponse((int)HttpStatusCode.OK, Type = typeof(UserResponseDto))]
     [SwaggerResponse((int)HttpStatusCode.NoContent)]

@@ -1,4 +1,5 @@
-﻿using Appointment.Infra.Data.Mapping;
+﻿using Appointment.Domain.Entities;
+using Appointment.Infra.Data.Mapping;
 using HealthMed.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +12,7 @@ public class ApplicationDbContext : DbContext
     }
 
     public DbSet<Domain.Entities.Appointment> Appointments { get; set; }
+    public DbSet<Availability> Availabities { get; set; }
     public DbSet<SeedHistory> SeedHistories { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -18,6 +20,7 @@ public class ApplicationDbContext : DbContext
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.ApplyConfiguration(new AppointmentMap());
+        modelBuilder.ApplyConfiguration(new AvailabilityMap());
     }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

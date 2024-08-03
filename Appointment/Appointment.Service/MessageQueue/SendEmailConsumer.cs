@@ -3,7 +3,6 @@ using MailKit.Net.Smtp;
 using MassTransit;
 using Microsoft.Extensions.Configuration;
 using MimeKit;
-using System.Text;
 
 namespace Appointment.Service.QueueMessege;
 
@@ -19,16 +18,49 @@ public class SendEmailConsumer : IConsumer<CreateAppointment>
         message.To.Add(new MailboxAddress(context.Message.DoctorName, context.Message.DoctorEmail));
         message.Subject = $"Consulta Confirmada!";
 
-        StringBuilder sb = new();
-        sb.AppendLine("Health&Med - Nova consulta agendada");
-        sb.AppendLine($"Corpo do e-mail: Olá, Dr. {context.Message.DoctorName}");
-        sb.AppendLine("Você tem uma nova consulta marcada!");
-        sb.AppendLine($"Paciente: {context.Message.PatientName}.");
-        sb.AppendLine($"Data e horário: {context.Message.Date:dd/MM/yyyy} às {context.Message.Time}..");
+        string htmlBody = $@"
+        <html>
+        <head>
+            <style>
+                body {{
+                    font-family: Arial, sans-serif;
+                    background-color: #f4f4f4;
+                }}
+                .container {{
+                    max-width: 600px;
+                    margin: 0 auto;
+                    padding: 20px;
+                    background-color: #ffffff;
+                    border-radius: 5px;
+                    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                }}
+                h1 {{
+                    color: #333333;
+                }}
+                p {{
+                    color: #666666;
+                    line-height: 1.5;
+                }}
+                .highlight {{
+                    color: #ff6600;
+                    font-weight: bold;
+                }}
+            </style>
+        </head>
+        <body>
+            <div class=""container"">
+                <h1>Health&Med - Nova consulta agendada</h1>
+                <p>Olá, Dr. {context.Message.DoctorName},</p>
+                <p>Você tem uma nova consulta marcada!</p>
+                <p>Paciente: <span class=""highlight"">{context.Message.PatientName}</span>.</p>
+                <p>Data e horário: <span class=""highlight"">{context.Message.Date:dd/MM/yyyy}</span> às <span class=""highlight"">{context.Message.Time}</span>.</p>
+            </div>
+        </body>
+        </html>";
 
-        message.Body = new TextPart("plain")
+        message.Body = new TextPart("html")
         {
-            Text = sb.ToString()
+            Text = htmlBody
         };
 
         using SmtpClient client = new();

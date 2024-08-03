@@ -5,13 +5,12 @@ namespace Appointment.Domain.Interfaces.Services
 {
     public interface IAppointmentService
     {
-        Task<DefaultServiceResponseDto> CancelAppointmentAsync(int appointmentId, int patientId);
-        Task<DefaultServiceResponseDto> CreateAppointmentAsync(CreateAppointmentRequestDto createAppointmentRequestDto,int patientId, string token);
-        Task<List<AppointmentDto>> GetAllAppointmentsAsync();
-        Task<AppointmentDto> GetAppointmentByIdAsync(int appointmentId);
-        Task<DoctorScheduleResponseDto> GetAppointmentsByDoctorIdAsync(int doctorId);
-        Task<PatientAppointmentsResponseDto> GetAppointmentsByPatientIdAsync(int patientId);
-        Task<List<AvailableSlotDto>> GetAvailableSlotsAsync(int doctorId, DateTime date);
-        Task<DefaultServiceResponseDto> UpdateAppointmentAsync(UpdateAppointmentRequestDto updateAppointmentRequestDto, int patientId);
+        Task<DefaultServiceResponseDto> CancelAsync(int appointmentId, int patientId);
+        Task<DefaultServiceResponseDto> CreateAsync(CreateAppointmentRequestDto createAppointmentRequestDto,int patientId, string token);
+        Task<List<AppointmentDto>> GetAllAsync();
+        Task<AppointmentDto> GetByIdAsync(int appointmentId);
+        Task<DoctorScheduleResponseDto> GetByDoctorIdAsync(int doctorId);
+        Task<PatientAppointmentsResponseDto> GetByPatientIdAsync(int patientId);        
+        Task<DefaultServiceResponseDto> UpdateAsync(UpdateAppointmentRequestDto updateAppointmentRequestDto, int patientId);
     }
 }

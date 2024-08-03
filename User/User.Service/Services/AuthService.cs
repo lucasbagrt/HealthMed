@@ -176,7 +176,7 @@ public class AuthService : BaseService, IAuthService
         var authClaims = new List<Claim>
         {
             new Claim(ClaimTypes.Name, user.UserName),
-            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),            
             new Claim("JWTID", Guid.NewGuid().ToString()),
         };
 

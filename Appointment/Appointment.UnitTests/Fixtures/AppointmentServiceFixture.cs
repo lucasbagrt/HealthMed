@@ -1,67 +1,78 @@
-﻿using Moq;
-using Appointment.Domain.Interfaces.Repositories;
-using Appointment.Domain.Interfaces.Services;
-using Appointment.Service.Services;
-using Appointment.Domain.Dtos.Appointment;
-using HealthMed.CrossCutting.Notifications;
-using AutoMapper;
+﻿using Appointment.Domain.Entities;
+using Entities = Appointment.Domain.Entities;
 using Appointment.Domain.Interfaces.Integration;
-using HealthMed.Domain.Dtos;
+using Appointment.Domain.Interfaces.Repositories;
+using Appointment.Service.Services;
+using Appointment.UnitTests.Scenarios;
+using AutoMapper;
+using HealthMed.CrossCutting.Notifications;
 using MassTransit;
+using Moq;
+using System.Linq.Expressions;
+using Appointment.Domain.Dtos.Appointment;
 
-namespace Appointment.UnitTests.Fixtures
+namespace Appointment.UnitTests.Fixtures;
+
+public class AppointmentServiceFixture
 {
-    public class AppointmentServiceFixture
+    public AppointmentService AppointmentService { get; }
+
+    public AppointmentServiceFixture()
     {
-        public IAppointmentService AppointmentService { get; }
+        var mapperMock = new Mock<IMapper>();
+        var appointmentRepositoryMock = new Mock<IAppointmentRepository>();
+        var availabilityRepositoryMock = new Mock<IAvailabilityRepository>();
+        var notificationContextMock = new Mock<NotificationContext>();
+        var userIntegrationMock = new Mock<IUserIntegration>();
+        var busMock = new Mock<IBus>();
 
-        public AppointmentServiceFixture()
-        {
-            var mockMapper = new Mock<IMapper>();
+        appointmentRepositoryMock.Setup(x => x.SelectAsync(It.IsAny<int>()))
+            .ReturnsAsync((int id) => AppointmentServiceScenarios.Appointments.FirstOrDefault(a => a.Id == id));
 
-            var mockAppointmentRepository = new Mock<IAppointmentRepository>();
-            mockAppointmentRepository.Setup(repo => repo.GetAppointmentsByDoctorIdAndDateAsync(It.IsAny<int>(), It.IsAny<DateTime>()))
-                .ReturnsAsync(new List<Domain.Entities.Appointment>
-                {
-                    new Domain.Entities.Appointment { Time = new TimeSpan(10, 0, 0) },
-                    new Domain.Entities.Appointment { Time = new TimeSpan(14, 0, 0) }
-                });
+        appointmentRepositoryMock.Setup(x => x.SelectAsync())
+            .ReturnsAsync(AppointmentServiceScenarios.Appointments);
 
-            var mockScheduleRepository = new Mock<IScheduleRepository>();
-            mockScheduleRepository.Setup(repo => repo.GetWorkingHoursByDoctorIdAsync(It.IsAny<int>()))
-                .ReturnsAsync(new List<WorkingHourDto>
-                {
-                    new WorkingHourDto { StartTime = new TimeSpan(9, 0, 0), EndTime = new TimeSpan(12, 0, 0) },
-                    new WorkingHourDto { StartTime = new TimeSpan(13, 0, 0), EndTime = new TimeSpan(17, 0, 0) }
-                });
+        appointmentRepositoryMock.Setup(x => x.SelectAsync(It.IsAny<Expression<Func<Entities.Appointment, bool>>>()))
+            .ReturnsAsync((Expression<Func<Entities.Appointment, bool>> predicate) => AppointmentServiceScenarios.Appointments.AsQueryable().Where(predicate).ToList());
 
-            var mockNotificationContext = new Mock<NotificationContext>();
-            var mock = new Mock<NotificationContext>();
+        userIntegrationMock.Setup(x => x.GetUserInfo(It.IsAny<int>(), It.IsAny<string>()))
+            .ReturnsAsync((int userId, string token) => AppointmentServiceScenarios.Users.FirstOrDefault(u => u.Id == userId));
 
-            var mockIUserIntegration = new Mock<IUserIntegration>();
-            var userInfo = new UserInfoDto
+        availabilityRepositoryMock.Setup(x => x.FirstOrDefaultAsync(It.IsAny<Expression<Func<Availability, bool>>>()))
+            .ReturnsAsync((Expression<Func<Availability, bool>> predicate) =>
             {
-                Email = "test@example.com",
-                FirstName = "John",
-                Id = 1,
-                LastName = "Doe",
-                Name = "John Doe"
-            };
+                var availabilityId = AppointmentServiceScenarios.Availabilities
+                    .FirstOrDefault(predicate.Compile())?.Id;
 
-            mockIUserIntegration.Setup(func => func.GetUserInfo(It.IsAny<int>(), It.IsAny<string>()))
-                                .ReturnsAsync(userInfo);
+                return availabilityId.HasValue
+                    ? AppointmentServiceScenarios.Availabilities.FirstOrDefault(a => a.Id == availabilityId.Value)
+                    : null;
+            });
 
-            var mockBus = new Mock<IBus>();
- 
-            AppointmentService = new AppointmentService(
-                mockMapper.Object,
-                mockAppointmentRepository.Object,
-                mockScheduleRepository.Object,
-                mockNotificationContext.Object,
-                mockIUserIntegration.Object,
-                mockBus.Object
-            );
-        }
+        mapperMock.Setup(x => x.Map<AppointmentDto>(It.IsAny<Entities.Appointment>()))
+          .Returns((Entities.Appointment appointment) => new AppointmentDto
+          {
+              Id = appointment.Id,
+              AvailabilityId = appointment.AvailabilityId,
+              PatientId = appointment.PatientId,
+              Status = appointment.Status,
+          });
+
+        mapperMock.Setup(x => x.Map<List<AppointmentDto>>(It.IsAny<List<Entities.Appointment>>()))
+            .Returns((List<Entities.Appointment> appointments) => appointments.Select(appointment => new AppointmentDto
+            {
+                Id = appointment.Id,
+                AvailabilityId = appointment.AvailabilityId,
+                PatientId = appointment.PatientId,
+                Status = appointment.Status,
+            }).ToList());
+
+        AppointmentService = new AppointmentService(
+            mapperMock.Object,
+            appointmentRepositoryMock.Object,
+            availabilityRepositoryMock.Object,
+            notificationContextMock.Object,
+            userIntegrationMock.Object,
+            busMock.Object);
     }
 }
-

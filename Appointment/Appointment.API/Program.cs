@@ -66,10 +66,11 @@ services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 services.AddScoped<NotificationContext>();
 services.AddScoped<IBaseService, BaseService>(); 
 services.AddScoped<IAppointmentService, AppointmentService>();
+services.AddScoped<IAvailabilityService, AvailabilityService>();
 services.AddScoped<IUserIntegration, UserIntegration>();
 
 services.AddScoped<IAppointmentRepository, AppointmentRepository>();
-services.AddScoped<IScheduleRepository, ScheduleRepository>();
+services.AddScoped<IAvailabilityRepository, AvailabilityRepository>();
 #endregion
 
 #region [Swagger]            

@@ -2,6 +2,6 @@
 
 namespace Appointment.Domain.Interfaces.Repositories;
 
-public interface IAppointmentRepository : IBaseRepository<Entities.Appointment, int>
-{               
+public interface IAvailabilityRepository : IBaseRepository<Entities.Availability, int>
+{
 }

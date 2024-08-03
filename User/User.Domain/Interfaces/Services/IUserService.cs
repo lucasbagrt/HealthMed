@@ -1,14 +1,13 @@
 ﻿using HealthMed.Domain.Dtos.Default;
 using User.Domain.Dtos.User;
 using User.Domain.Filters;
-using Microsoft.AspNetCore.Http;
 using HealthMed.Domain.Dtos;
 
 namespace User.Domain.Interfaces.Services;
 
 public interface IUserService
 {
-    Task<ICollection<UserResponseDto>> GetAllAsync(UserFilter filter);
+    Task<ICollection<UserResponseDto>> GetAllAsync(UserFilter filter, bool onlyDoctors = false);
     Task<UserResponseDto> GetByIdAsync(int id);
     Task<UserInfoDto> GetUserInfoAsync(int id, int userIdLogged);
     Task<DefaultServiceResponseDto> UpdateAsync(UpdateUserDto updateUserDto, int id);

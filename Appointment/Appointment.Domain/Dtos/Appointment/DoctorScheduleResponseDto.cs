@@ -1,8 +1,7 @@
-﻿namespace Appointment.Domain.Dtos.Appointment
+﻿namespace Appointment.Domain.Dtos.Appointment;
+
+public class DoctorScheduleResponseDto
 {
-    public class DoctorScheduleResponseDto
-    {
-        public int DoctorId { get; set; }
-        public List<AppointmentDto>? Appointments { get; set; }
-    }
+    public int DoctorId { get; set; }
+    public List<AppointmentDto> Appointments { get; set; }
 }

@@ -9,4 +9,5 @@ public class CreateAppointment
     public string PatientName { get; set; }
     public DateTime Date { get; set; }
     public TimeSpan Time { get; set; }
+    public int AvailabilityId { get; set; }
 }

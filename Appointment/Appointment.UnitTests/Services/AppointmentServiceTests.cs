@@ -1,67 +1,163 @@
-﻿using Appointment.Domain.Dtos.Appointment;
-using Appointment.Domain.Interfaces.Repositories;
-using Appointment.Domain.Interfaces.Services;
-using Appointment.UnitTests.Fixtures;
-using Moq;
+﻿using Appointment.UnitTests.Fixtures;
+using Appointment.UnitTests.Scenarios;
+using HealthMed.CrossCutting.Notifications;
 
-namespace Appointment.UnitTests.Services
+namespace Appointment.UnitTests.Services;
+
+public class AppointmentServiceTests : IClassFixture<AppointmentServiceFixture>
 {
-    public class AppointmentServiceTests : IClassFixture<AppointmentServiceFixture>
+    private readonly AppointmentServiceFixture _fixture;
+
+    public AppointmentServiceTests(AppointmentServiceFixture fixture)
     {
-        private readonly IAppointmentService _appointmentService;
-        private readonly Mock<IAppointmentRepository> _mockAppointmentRepository;
-        private readonly Mock<IScheduleRepository> _mockScheduleRepository;
+        _fixture = fixture;
+    }
 
-        public AppointmentServiceTests(AppointmentServiceFixture fixture)
-        {
-            _appointmentService = fixture.AppointmentService;
-            _mockAppointmentRepository = new Mock<IAppointmentRepository>();
-            _mockScheduleRepository = new Mock<IScheduleRepository>();
-        }
+    [Fact]
+    public async Task CreateAsync_ValidAppointment_ReturnsSuccess()
+    {
+        // Arrange
+        var createAppointmentRequestDto = AppointmentServiceScenarios.ValidCreateAppointmentRequestDto();
+        int patientId = 1;
+        string token = "valid_token";
 
-        [Fact]
-        public async Task GetAvailableSlotsAsync_ShouldReturnCorrectAvailableSlots()
-        {
-            // Arrange
-            var doctorId = 1;
-            var date = new DateTime(2024, 8, 1);
+        // Act
+        var result = await _fixture.AppointmentService.CreateAsync(createAppointmentRequestDto, patientId, token);
 
-            var appointments = new List<Domain.Entities.Appointment>
-            {
-                new Domain.Entities.Appointment { DoctorId = doctorId, Date = date.Date, Time = new TimeSpan(10, 0, 0) },
-                new Domain.Entities.Appointment { DoctorId = doctorId, Date = date.Date, Time = new TimeSpan(14, 0, 0) }
-            };
+        // Assert
+        Assert.NotNull(result);
+        Assert.True(result.Success);
+        Assert.Equal(StaticNotifications.AppointmentCreated.Message, result.Message);
+    }
 
-            var workingHours = new List<WorkingHourDto>
-            {
-                new WorkingHourDto { StartTime = new TimeSpan(9, 0, 0), EndTime = new TimeSpan(12, 0, 0) },
-                new WorkingHourDto { StartTime = new TimeSpan(13, 0, 0), EndTime = new TimeSpan(17, 0, 0) }
-            };
+    [Fact]
+    public async Task CreateAsync_InvalidAvailability_ReturnsDefault()
+    {
+        // Arrange
+        var createAppointmentRequestDto = AppointmentServiceScenarios.InvalidCreateAppointmentRequestDto();
+        int patientId = 1;
+        string token = "valid_token";
 
-            var expectedAvailableSlots = new List<AvailableSlotDto>
-            {
-                new AvailableSlotDto { Time = new TimeSpan(9, 0, 0) },
-                new AvailableSlotDto { Time = new TimeSpan(13, 0, 0) }
-            };
+        // Act
+        var result = await _fixture.AppointmentService.CreateAsync(createAppointmentRequestDto, patientId, token);
 
-            _mockAppointmentRepository
-                .Setup(repo => repo.GetAppointmentsByDoctorIdAndDateAsync(It.IsAny<int>(), It.IsAny<DateTime>()))
-                .ReturnsAsync(appointments);
+        // Assert
+        Assert.Equal(default, result);
+    }
 
-            _mockScheduleRepository
-                .Setup(repo => repo.GetWorkingHoursByDoctorIdAsync(It.IsAny<int>()))
-                .ReturnsAsync(workingHours);
+    [Fact]
+    public async Task UpdateAsync_ValidAppointment_ReturnsSuccess()
+    {
+        // Arrange
+        var updateAppointmentRequestDto = AppointmentServiceScenarios.ValidUpdateAppointmentRequestDto();
+        int patientId = 1;
 
-            // Act
-            var result = await _appointmentService.GetAvailableSlotsAsync(doctorId, date);
+        // Act
+        var result = await _fixture.AppointmentService.UpdateAsync(updateAppointmentRequestDto, patientId);
 
-            // Assert
-            Assert.NotNull(result);
-            Assert.Equal(expectedAvailableSlots.Count, result.Count);
-            foreach (var expectedSlot in expectedAvailableSlots)
-            {
-                Assert.Contains(result, slot => slot.Time == expectedSlot.Time);
-            }
-        }
+        // Assert
+        Assert.NotNull(result);
+        Assert.True(result.Success);
+        Assert.Equal(StaticNotifications.AppointmentUpdated.Message, result.Message);
+    }
+
+    [Fact]
+    public async Task UpdateAsync_InvalidAvailability_ReturnsDefault()
+    {
+        // Arrange
+        var updateAppointmentRequestDto = AppointmentServiceScenarios.InvalidUpdateAppointmentRequestDto();
+        int patientId = 1;
+
+        // Act
+        var result = await _fixture.AppointmentService.UpdateAsync(updateAppointmentRequestDto, patientId);
+
+        // Assert
+        Assert.Equal(default, result);
+    }
+
+    [Fact]
+    public async Task CancelAsync_ValidAppointment_ReturnsSuccess()
+    {
+        // Arrange
+        int appointmentId = 1;
+        int patientId = 1;
+
+        // Act
+        var result = await _fixture.AppointmentService.CancelAsync(appointmentId, patientId);
+
+        // Assert
+        Assert.NotNull(result);
+        Assert.True(result.Success);
+        Assert.Equal(StaticNotifications.AppointmentCancelled.Message, result.Message);
+    }
+
+    [Fact]
+    public async Task CancelAsync_InvalidPatient_ReturnsDefault()
+    {
+        // Arrange
+        int appointmentId = 1;
+        int patientId = 2;
+
+        // Act
+        var result = await _fixture.AppointmentService.CancelAsync(appointmentId, patientId);
+
+        // Assert
+        Assert.Equal(default, result);
+    }
+
+    [Fact]
+    public async Task GetByIdAsync_ExistingAppointment_ReturnsAppointmentDto()
+    {
+        // Arrange
+        int appointmentId = 1;
+
+        // Act
+        var result = await _fixture.AppointmentService.GetByIdAsync(appointmentId);
+
+        // Assert
+        Assert.NotNull(result);
+        Assert.Equal(appointmentId, result.Id);
+    }
+
+    [Fact]
+    public async Task GetAllAsync_ReturnsListOfAppointmentDto()
+    {
+        // Act
+        var result = await _fixture.AppointmentService.GetAllAsync();
+
+        // Assert
+        Assert.NotNull(result);
+        Assert.Equal(AppointmentServiceScenarios.Appointments.Count, result.Count);
+    }
+
+    [Fact]
+    public async Task GetByDoctorIdAsync_ExistingDoctor_ReturnsDoctorScheduleResponseDto()
+    {
+        // Arrange
+        int doctorId = 1;
+        int expectedAppointmentCount = AppointmentServiceScenarios.Appointments.Count(a => a.Availability.DoctorId == doctorId);
+
+        // Act
+        var result = await _fixture.AppointmentService.GetByDoctorIdAsync(doctorId);
+
+        // Assert
+        Assert.NotNull(result);
+        Assert.Equal(doctorId, result.DoctorId);
+        Assert.Equal(expectedAppointmentCount, result.Appointments.Count);
+    }
+
+    [Fact]
+    public async Task GetByPatientIdAsync_ExistingPatient_ReturnsPatientAppointmentsResponseDto()
+    {
+        // Arrange
+        int patientId = 1;
+
+        // Act
+        var result = await _fixture.AppointmentService.GetByPatientIdAsync(patientId);
+
+        // Assert
+        Assert.NotNull(result);
+        Assert.Equal(patientId, result.PatientId);
+        Assert.Equal(2, result.Appointments.Count);
     }
 }

@@ -1,13 +1,13 @@
-﻿using Appointment.Domain.Enums;
+﻿using Appointment.Domain.Dtos.Availability;
+using Appointment.Domain.Enums;
 
-namespace Appointment.Domain.Dtos.Appointment
+namespace Appointment.Domain.Dtos.Appointment;
+
+public class AppointmentDto
 {
-    public class AppointmentDto
-    {
-        public int AppointmentId { get; set; }
-        public int PatientId { get; set; }
-        public DateTime Date { get; set; }
-        public TimeSpan Time { get; set; }
-        public AppointmentStatus Status { get; set; }
-    }
+    public int Id { get; set; }
+    public int PatientId { get; set; }
+    public int AvailabilityId { get; set; }
+    public AppointmentStatus Status { get; set; }
+    public AvailabilityDto Availability { get; set; }
 }
