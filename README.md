@@ -16,15 +16,14 @@ Plataforma de agendamento de consultas medicas, desenvolvida em .NET 8 com arqui
 - [Rafael Araujo](https://github.com/RafAraujo)
 
 ### Este projeto contém dois microserviços: `User API` e `Appointment API`.
-### Abaixo estão as instruções informativas para configurar e implantar esses serviços na Azure,
-### incluindo configuração do Service Bus, banco de dados SQL, AKS, e pipeline de CI/CD para Docker Hub, AKS e análise de código com Sonar Cloud.
+### Abaixo estão as instruções informativas para configurar e implantar esses serviços na Azure, incluindo configuração do Service Bus, banco de dados SQL, AKS, e pipeline de CI/CD para Docker Hub, AKS e análise de código com Sonar Cloud.
 
 ## Configuração do Service Bus
 
 - Crie um namespace do Service Bus na Azure.
 - Crie uma fila no Service Bus.
 - Obtenha a string de conexão do Service Bus e adicione-a no `appsettings.json` da `Appointment API`:
-- 
+
 ![image](https://github.com/user-attachments/assets/57bc9ef6-7625-41be-bb33-043773f20eb3)
 
 
@@ -42,7 +41,6 @@ Plataforma de agendamento de consultas medicas, desenvolvida em .NET 8 com arqui
 - Obtenha a URL externa do serviço User API e adicione-a no `appsettings.json` da `Appointment API`:
 
 ![image](https://github.com/user-attachments/assets/a6cfab33-0a92-47d3-bcfd-5134ad55b017)
-
 
 - Implante a Appointment API no AKS.
 
