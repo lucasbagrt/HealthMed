@@ -1,7 +1,7 @@
 # Health Med
-Plataforma de controle de comandas de restaurante e gerenciamento de produtos, desenvolvida em .NET 8 com arquitetura de microsserviços e arquitetura limpa com testes unitários e testes de integração.
+Plataforma de agendamento de consultas medicas, desenvolvida em .NET 8 com arquitetura de microsserviços e arquitetura limpa com testes unitários e testes de integração.
 
-### 📋 Pré-requisitos
+## 📋 Pré-requisitos
 
 * Azure Service Bus
 * Azure SQL Database
@@ -15,8 +15,8 @@ Plataforma de controle de comandas de restaurante e gerenciamento de produtos, d
 - [Victoria Pacheco](https://github.com/vickypacheco)
 - [Rafael Araujo](https://github.com/RafAraujo)
 
-## Este projeto contém dois microserviços: `User API` e `Appointment API`. 
-## Abaixo estão as instruções informativas para configurar e implantar esses serviços na Azure, incluindo configuração do Service Bus, banco de dados SQL, AKS, e pipeline de CI/CD para Docker Hub e AKS.
+### Este projeto contém dois microserviços: `User API` e `Appointment API`.
+### Abaixo estão as instruções informativas para configurar e implantar esses serviços na Azure, incluindo configuração do Service Bus, banco de dados SQL, AKS, e pipeline de CI/CD para Docker Hub, AKS e análise de código com Sonar Cloud.
 
 ## Configuração do Service Bus
 
@@ -33,7 +33,7 @@ Plataforma de controle de comandas de restaurante e gerenciamento de produtos, d
 - Obtenha a string de conexão do banco de dados e adicione-a no appsettings.json da Appointment API e User API:
 ![image](https://github.com/user-attachments/assets/99d9f42c-7713-465d-9f5d-d6881fda6445)
 
-##Configuração do AKS
+## Configuração do AKS
 
 - Crie um cluster do AKS na Azure.
 - Implante a User API no AKS.
