@@ -1,0 +1,33 @@
+name: CI/CD Pipeline HealthMed API-APPOINTMENT
+on:
+  push:
+    branches:
+       - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Login to Docker Hub
+        run: echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin   
+      - name: Build and Push Docker Image
+        run: |
+          dir
+          docker build -t healthmedfiap/fiap-appointment:latest -f Appointment/Appointment.API/Dockerfile .
+          docker push healthmedfiap/fiap-appointment:latest
+      - name: Set up kubectl
+        uses: azure/k8s-set-context@v1
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.KUBE_CONFIG }}
+          version: 1.21.0          
+      - name: Listando dir
+        run: |
+          dir
+          echo "executando dir"
+          dir
+      - name: Deploy to AKS
+        run: |
+          kubectl apply -f Appointment/Appointment.API/k8s/deploy-appointment.yml
+          kubectl apply -f Appointment/Appointment.API/k8s/loadbalancer-appointment.yml
